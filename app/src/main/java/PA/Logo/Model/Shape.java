@@ -1,4 +1,4 @@
-package PA.Logo;
+package PA.Logo.Model;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,14 +22,14 @@ public interface Shape {
      *
      * @param s the shape whose color is needed.
      */
-    void getShapeColour(Shape s);
+    void getShapeColor(Shape s);
 
     /**
      * Set the color of the shape.
      *
      * @param c the color.
      */
-    void setShapeColour(Color c);
+    void setShapeColor(Color c);
 
     /**
      * Add a line to the shape.
