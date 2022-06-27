@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public interface Coordinates {
     ArrayList<Integer> coordinatesList = new ArrayList<Integer>();
 
-    public void getCoordinates();
+    void getCoordinates();
 
-    public void setCoordinates(ArrayList<Integer> coordinatesList);
+    void setCoordinates(ArrayList<Integer> coordinates);
 }
