@@ -7,7 +7,7 @@ public interface Shape {
     /**
      * ArrayList of all lines in the shape. Can contain any number of connected lines.
      */
-    ArrayList<Line> lines = new ArrayList<Line>();
+    ArrayList<Line> lines = new ArrayList<>();
 
     /**
      * Get the shape that contains a specific line.
@@ -27,7 +27,7 @@ public interface Shape {
     /**
      * Set the color of the shape.
      *
-     * @param c the color.
+     * @param c the chosen color in RGB.
      */
     void setShapeColor(Color c);
 
