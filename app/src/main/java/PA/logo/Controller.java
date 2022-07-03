@@ -1,4 +1,4 @@
-package PA.Logo;
+package PA.logo;
 
 public class Controller {
 }

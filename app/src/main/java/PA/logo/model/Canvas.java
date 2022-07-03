@@ -1,4 +1,4 @@
-package PA.Logo.Model;
+package PA.logo.model;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -6,18 +6,19 @@ import java.util.ArrayList;
 /**
  * Defines the canvas on which one draws.
  */
-public interface Canvas<T extends Number> {
+public interface Canvas<N extends Number, C extends Coordinate, L extends Line<C>, S extends Shape<C, L>> {
 
     /**
-     * Array List of all the shapes that are on the canvas.
-     * Shapes can be of any type: single lines, a concatenation of lines, straight or curved lines, coloured or not, closed or not.
+     * Gets all the shapes in the canvas.
+     *
+     * @return an ArrayList with all the shapes.
      */
-    ArrayList<Shape> allShapesInCanvas = new ArrayList<>();
+    ArrayList<S> getAllShapesInCanvas();
 
     /**
      * Returns the coordinates for the home.
      */
-    Coordinate getHome();
+    C getHome();
 
     /**
      * Get the color of the area.
@@ -38,7 +39,7 @@ public interface Canvas<T extends Number> {
      *
      * @return the size of the area.
      */
-    T getCanvasSize();
+    N getCanvasSize();
 
     /**
      * Set the size of the area. Must have at least height and base.

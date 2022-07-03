@@ -1,4 +1,4 @@
-package PA.Logo.Model;
+package PA.logo.model;
 
 import java.awt.*;
 
@@ -34,12 +34,12 @@ public class CursorIn2D implements Cursor<Double>{
     }
 
     @Override
-    public void penup() {
+    public void penUp() {
 
     }
 
     @Override
-    public void pendown() {
+    public void penDown() {
 
     }
 

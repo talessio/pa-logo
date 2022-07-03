@@ -1,6 +1,6 @@
-package PA.Logo.IO;
+package PA.logo.io;
 
-import PA.Logo.Model.Shape;
+import PA.logo.model.Shape;
 import java.nio.file.Path;
 import java.util.ArrayList;
 

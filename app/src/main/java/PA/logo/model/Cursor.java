@@ -1,4 +1,4 @@
-package PA.Logo.Model;
+package PA.logo.model;
 
 import java.awt.*;
 
@@ -48,12 +48,12 @@ public interface Cursor<T extends Number> {
     /**
      * Lifts the pen from the canvas.
      */
-    void penup();
+    void penUp();
 
     /**
      * Puts the pen down on the canvas.
      */
-    void pendown();
+    void penDown();
 
     /**
      * Sets the pen color.

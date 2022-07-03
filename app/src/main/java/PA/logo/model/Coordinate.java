@@ -1,6 +1,4 @@
-package PA.Logo.Model;
-
-import java.util.ArrayList;
+package PA.logo.model;
 
 /**
  * Defines the coordinate on the canvas.
