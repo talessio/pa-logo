@@ -1,12 +1,15 @@
 package pa.logo.io;
 
-import PA.logo.model.Shape;
+import pa.logo.model.CoordinateIn2D;
+import pa.logo.model.ShapeIn2D;
+import pa.logo.model.StraightLineIn2D;
+
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-public class FileWriter implements LogoWriter {
+public class FileWriter implements LogoWriter<CoordinateIn2D, StraightLineIn2D, ShapeIn2D> {
     @Override
-    public void write(Path path, ArrayList<Shape> shapes) {
+    public void write(Path path, ArrayList<ShapeIn2D> shapes) {
 
     }
 }
