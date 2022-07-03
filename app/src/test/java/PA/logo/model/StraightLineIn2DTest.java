@@ -1,4 +1,4 @@
-package PA.logo.model;
+package pa.logo.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
