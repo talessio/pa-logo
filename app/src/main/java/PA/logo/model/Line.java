@@ -1,4 +1,4 @@
-package PA.logo.model;
+package pa.logo.model;
 
 import java.awt.*;
 import java.util.ArrayList;

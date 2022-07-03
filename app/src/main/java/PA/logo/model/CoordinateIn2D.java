@@ -1,4 +1,4 @@
-package PA.logo.model;
+package pa.logo.model;
 
 public class CoordinateIn2D implements Coordinate {
     double x;

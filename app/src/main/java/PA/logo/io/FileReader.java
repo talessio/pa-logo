@@ -1,4 +1,4 @@
-package PA.logo.io;
+package pa.logo.io;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
