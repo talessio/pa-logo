@@ -13,7 +13,7 @@ public class StraightLineIn2DTest {
     double x2 = 2.0;
     double y2 = 3.0;
     CoordinateIn2D coordinate2 = new CoordinateIn2D(x2, y2);
-    Color color1 = new Color(1, 1, 1);
+    Color color1 = Color.black;
     StraightLineIn2D line1 = new StraightLineIn2D(coordinate1, coordinate2, color1);
     double x3 = 2.0;
     double y3 = 3.0;
@@ -76,7 +76,7 @@ public class StraightLineIn2DTest {
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
         shape2.addLine(line4);
 
-        Assertions.assertSame(line1.getLineColor(), new Color(1, 1, 1));
+        Assertions.assertSame(line1.getLineColor(), Color.black);
         Assertions.assertSame(line2.getLineColor(), Color.yellow);
         Assertions.assertSame(line3.getLineColor(), Color.black);
         Assertions.assertSame(line4.getLineColor(), Color.green);

@@ -13,7 +13,7 @@ public class ShapeIn2DTest {
     double x2 = 2.0;
     double y2 = 3.0;
     CoordinateIn2D coordinate2 = new CoordinateIn2D(x2, y2);
-    Color color1 = new Color(1, 1, 1);
+    Color color1 = Color.black;
     StraightLineIn2D line1 = new StraightLineIn2D(coordinate1, coordinate2, color1);
     double x3 = 2.0;
     double y3 = 3.0;
@@ -88,8 +88,8 @@ public class ShapeIn2DTest {
     }
 
     @Test
-    public void contains() {
-        ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
+    public void getAndSetShapeColor() {
+        ShapeIn2D shape1 = new ShapeIn2D(linesInShape1);
         shape1.addLine(line1);
         shape1.addLine(line2);
         shape1.addLine(line3);
@@ -97,36 +97,13 @@ public class ShapeIn2DTest {
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
         shape2.addLine(line4);
 
-        ArrayList<StraightLineIn2D> linesInMockShape1 = new ArrayList<>();
-        linesInMockShape1.add(line1);
-        linesInMockShape1.add(line2);
-        linesInMockShape1.add(line3);
-        ArrayList<StraightLineIn2D> linesInMockShape2 = new ArrayList<>();
-        linesInMockShape2.add(line4);
-
-        //TODO: do i need this? can i not more simply just do getshapelines().contains? 🤔
-    }
-
-    @Test
-    public void getShapeColor() {
-        ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
-        shape1.addLine(line1);
-        shape1.addLine(line2);
-        shape1.addLine(line3);
-        shape1.setClosed();
-        ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
-        shape2.addLine(line4);
-    }
-
-    @Test
-    public void setShapeColor() {
-        ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
-        shape1.addLine(line1);
-        shape1.addLine(line2);
-        shape1.addLine(line3);
-        shape1.setClosed();
-        ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
-        shape2.addLine(line4);
+        Color firstColor = shape1.getShapeColor();
+        Assertions.assertTrue(shape1.getShapeColor() == Color.white);
+        Assertions.assertEquals(firstColor, Color.white);
+        shape1.setShapeColor(Color.magenta);
+        Color secondColor = shape1.getShapeColor();
+        Assertions.assertTrue(shape1.getShapeColor() == Color.magenta);
+        Assertions.assertEquals(secondColor, Color.magenta);
     }
 
     @Test

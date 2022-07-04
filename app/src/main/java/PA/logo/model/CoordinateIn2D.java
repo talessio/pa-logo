@@ -1,8 +1,8 @@
 package pa.logo.model;
 
 public class CoordinateIn2D implements Coordinate {
-    double x;
-    double y;
+    private double x;
+    private double y;
 
     public CoordinateIn2D(double coordinate1, double coordinate2) {
         this.x = coordinate1;

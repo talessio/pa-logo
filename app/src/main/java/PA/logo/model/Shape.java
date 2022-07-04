@@ -17,13 +17,13 @@ public interface Shape<C extends Coordinate, L extends Line<C>> {
      */
     ArrayList<L> getShapeLines();
 
-    /**
-     * Checks if the shape contains a specific line.
-     *
-     * @param line the line.
-     * @return true if the line is contained inside the shape, false otherwise.
-     */
-    boolean contains(L line);
+//    /**
+//     * Checks if the shape contains a specific line.
+//     *
+//     * @param line the line.
+//     * @return true if the line is contained inside the shape, false otherwise.
+//     */
+//    boolean contains(L line);
 
     /**
      * Get the color of the shape.
