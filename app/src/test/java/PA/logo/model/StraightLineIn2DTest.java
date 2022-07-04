@@ -43,13 +43,20 @@ public class StraightLineIn2DTest {
 
     @Test
     public void getCoordinatesTest() {
-        linesInShape1.add(line1);
-        linesInShape1.add(line2);
-        linesInShape1.add(line3);
+//        linesInShape1.add(line1);
+//        linesInShape1.add(line2);
+//        linesInShape1.add(line3);
+//        ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
+//        shape1.setClosed();
+//        linesInShape2.add(line4);
+//        ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
         ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
+        shape1.addLine(line1);
+        shape1.addLine(line2);
+        shape1.addLine(line3);
         shape1.setClosed();
-        linesInShape2.add(line4);
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
+        shape2.addLine(line4);
 
         Assertions.assertSame(line1.getCoordinates().get(0), coordinate1);
         Assertions.assertSame(line1.getCoordinates().get(1), coordinate2);
@@ -61,13 +68,13 @@ public class StraightLineIn2DTest {
 
     @Test
     public void getLineColorTest() {
-        linesInShape1.add(line1);
-        linesInShape1.add(line2);
-        linesInShape1.add(line3);
         ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
+        shape1.addLine(line1);
+        shape1.addLine(line2);
+        shape1.addLine(line3);
         shape1.setClosed();
-        linesInShape2.add(line4);
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
+        shape2.addLine(line4);
 
         Assertions.assertSame(line1.getLineColor(), new Color(1, 1, 1));
         Assertions.assertSame(line2.getLineColor(), Color.yellow);

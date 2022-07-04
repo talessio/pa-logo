@@ -42,89 +42,112 @@ public class ShapeIn2DTest {
     ArrayList<StraightLineIn2D> linesInShape2 = new ArrayList<>();
 
     @Test
-    public void addLine(StraightLineIn2D line) {
-        linesInShape1.add(line1);
-        linesInShape1.add(line2);
-        linesInShape1.add(line3);
+    public void addLine() {
         ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
+        shape1.addLine(line1);
+        shape1.addLine(line2);
+        shape1.addLine(line3);
         shape1.setClosed();
-        linesInShape2.add(line4);
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
+        shape2.addLine(line4);
 
-        Assertions.assertTrue(linesInShape1.contains(line1));
-        Assertions.assertTrue(shape1.contains(line1));
-        Assertions.assertTrue(linesInShape1.contains(line2));
-        Assertions.assertTrue(linesInShape1.contains(line3));
-        Assertions.assertFalse(linesInShape2.contains(line1));
-        Assertions.assertTrue(linesInShape2.contains(line4));
-        Assertions.assertTrue(shape2.contains(line4));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> shape1.addLine(line1)); //TODO: cannot add same line twice
+        Assertions.assertThrows(IllegalArgumentException.class, () -> shape2.addLine(null)); //TODO: cannot add null line
+        Assertions.assertThrows(IllegalArgumentException.class, () -> shape2.addLine(line1)); //TODO: lines must connect to at least one end of the shape e.g. if(shape.getEnds = at least one coordinate of new line) linesInShape.add(line) else throw exception
+
+//        Assertions.assertTrue(linesInShape1.contains(line1));
+//        Assertions.assertTrue(shape1.contains(line1));
+//        Assertions.assertTrue(linesInShape1.contains(line2));
+//        Assertions.assertTrue(linesInShape1.contains(line3));
+//        Assertions.assertFalse(linesInShape2.contains(line1));
+//        Assertions.assertTrue(linesInShape2.contains(line4));
+//        Assertions.assertTrue(shape2.contains(line4));
+
+        ArrayList<StraightLineIn2D> linesInMockShape1 = new ArrayList<>();
+        linesInMockShape1.add(line1);
+        linesInMockShape1.add(line2);
+        linesInMockShape1.add(line3);
+        ArrayList<StraightLineIn2D> linesInMockShape2 = new ArrayList<>();
+        linesInMockShape2.add(line4);
+
+        Assertions.assertEquals(linesInMockShape1.toString(), shape1.getShapeLines().toString());
+        Assertions.assertEquals(linesInMockShape2.toString(), shape2.getShapeLines().toString());
     }
 
     @Test
     public void getShapeLines() {
-        linesInShape1.add(line1);
-        linesInShape1.add(line2);
-        linesInShape1.add(line3);
         ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
+        shape1.addLine(line1);
+        shape1.addLine(line2);
+        shape1.addLine(line3);
         shape1.setClosed();
-        linesInShape2.add(line4);
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
+        shape2.addLine(line4);
 
-        
+
     }
 
     @Test
-    public void contains(StraightLineIn2D line) {
-        linesInShape1.add(line1);
-        linesInShape1.add(line2);
-        linesInShape1.add(line3);
+    public void contains() {
         ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
+        shape1.addLine(line1);
+        shape1.addLine(line2);
+        shape1.addLine(line3);
         shape1.setClosed();
-        linesInShape2.add(line4);
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
+        shape2.addLine(line4);
+
+        ArrayList<StraightLineIn2D> linesInMockShape1 = new ArrayList<>();
+        linesInMockShape1.add(line1);
+        linesInMockShape1.add(line2);
+        linesInMockShape1.add(line3);
+        ArrayList<StraightLineIn2D> linesInMockShape2 = new ArrayList<>();
+        linesInMockShape2.add(line4);
+
+        //TODO: do i need this? can i not more simply just do getshapelines().contains? 🤔
     }
 
     @Test
     public void getShapeColor() {
-        linesInShape1.add(line1);
-        linesInShape1.add(line2);
-        linesInShape1.add(line3);
         ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
+        shape1.addLine(line1);
+        shape1.addLine(line2);
+        shape1.addLine(line3);
         shape1.setClosed();
-        linesInShape2.add(line4);
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
+        shape2.addLine(line4);
     }
 
     @Test
-    public void setShapeColor(Color color) {
-        linesInShape1.add(line1);
-        linesInShape1.add(line2);
-        linesInShape1.add(line3);
+    public void setShapeColor() {
         ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
+        shape1.addLine(line1);
+        shape1.addLine(line2);
+        shape1.addLine(line3);
         shape1.setClosed();
-        linesInShape2.add(line4);
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
+        shape2.addLine(line4);
     }
 
     @Test
     public void isClosed() {
-        linesInShape1.add(line1);
-        linesInShape1.add(line2);
-        linesInShape1.add(line3);
         ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
+        shape1.addLine(line1);
+        shape1.addLine(line2);
+        shape1.addLine(line3);
         shape1.setClosed();
-        linesInShape2.add(line4);
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
+        shape2.addLine(line4);
     }
 
     @Test
     public void setClosed() {
-        linesInShape1.add(line1);
-        linesInShape1.add(line2);
-        linesInShape1.add(line3);
         ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
+        shape1.addLine(line1);
+        shape1.addLine(line2);
+        shape1.addLine(line3);
         shape1.setClosed();
-        linesInShape2.add(line4);
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
+        shape2.addLine(line4);
     }
 }

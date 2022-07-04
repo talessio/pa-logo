@@ -6,6 +6,8 @@ import java.util.ArrayList;
 public class ShapeIn2D implements Shape<CoordinateIn2D, StraightLineIn2D> {
 
     Color fillColor;
+    Coordinate endOfShape1;
+    Coordinate endOfShape2;
 
     /**
      * ArrayList of all lines in the shape. Can contain any number of connected lines.

@@ -35,18 +35,4 @@ public class StraightLineIn2D implements Line<CoordinateIn2D> {
         return this.color;
     }
 
-//    @Override
-//    public StraightLineIn2D getLine(CoordinateIn2D start, CoordinateIn2D end) {
-//        return null;
-//    }
-//
-//    @Override
-//    public ArrayList<StraightLineIn2D> getAllLinesFrom(CoordinateIn2D start) {
-//        return null;
-//    }
-//
-//    @Override
-//    public ArrayList<StraightLineIn2D> getAllLinesAt(CoordinateIn2D c) {
-//        return null;
-//    }
 }
