@@ -60,26 +60,6 @@ public class StraightLineIn2DTest {
     }
 
     @Test
-    public void isContainedTest(Shape shape) {
-        linesInShape1.add(line1);
-        linesInShape1.add(line2);
-        linesInShape1.add(line3);
-        ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
-        shape1.setClosed();
-        linesInShape2.add(line4);
-        ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
-
-        Assertions.assertTrue(shape1.contains(line1));
-        Assertions.assertTrue(shape1.contains(line2));
-        Assertions.assertTrue(shape1.contains(line3));
-        Assertions.assertFalse(shape1.contains(line4));
-        Assertions.assertTrue(shape2.contains(line4));
-        Assertions.assertFalse(shape2.contains(line1));
-        Assertions.assertFalse(shape2.contains(line2));
-        Assertions.assertFalse(shape2.contains(line3));
-    }
-
-    @Test
     public void getLineColorTest() {
         linesInShape1.add(line1);
         linesInShape1.add(line2);

@@ -32,7 +32,7 @@ public class StraightLineIn2D implements Line<CoordinateIn2D> {
 
     @Override
     public Color getLineColor() {
-        return null;
+        return this.color;
     }
 
 //    @Override
