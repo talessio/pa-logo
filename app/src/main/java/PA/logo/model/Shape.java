@@ -3,27 +3,32 @@ package pa.logo.model;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * A shape of any kind, color or form. Can be open or closed, can have any number of dimensions.
+ *
+ * @param <C> the coordinate(s).
+ * @param <L> the line(s).
+ */
 public interface Shape<C extends Coordinate, L extends Line<C>> {
 
     /**
-     * Add a line to the shape.
+     * Adds a line to the shape.
      *
-     * @param line the line to be added.
+     * @param lineToAdd the line to be added.
      */
-    void addLine(L line);
+    void addLine(L lineToAdd);
+
+    /**
+     * Adds a number of lines to the shape.
+     *
+     * @param linesToAdd the lines to be added.
+     */
+    void addLines(ArrayList<L> linesToAdd);
 
     /**
      * Get the lines contained in the shape.
      */
     ArrayList<L> getShapeLines();
-
-//    /**
-//     * Checks if the shape contains a specific line.
-//     *
-//     * @param line the line.
-//     * @return true if the line is contained inside the shape, false otherwise.
-//     */
-//    boolean contains(L line);
 
     /**
      * Get the color of the shape.

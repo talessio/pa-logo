@@ -4,62 +4,136 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * A shape in two dimensions. Can have a fill color, if none is given it's automatically white.
+ * Can be open or closed.
+ */
 public class ShapeIn2D implements Shape<CoordinateIn2D, StraightLineIn2D> {
 
     private Color fillColor;
-    private CoordinateIn2D endOfShape1;
-    private CoordinateIn2D endOfShape2;
     private boolean closed = false;
-    private int endsOfShape = 0;
 
     /**
      * ArrayList of all lines in the shape. Can contain any number of connected lines.
      */
     ArrayList<StraightLineIn2D> lines = new ArrayList<>();
+    private boolean needToClose;
 
     public ShapeIn2D(ArrayList<StraightLineIn2D> linesInShape, Color color) {
-        if (closed = false) {
-            if (linesAreLegal(linesInShape)) {
-                if () { //TODO: must check that the ends of shape are either 2 or 0! it 2, simply add lines, if 0 set shape closed!
-                    this.lines = linesInShape;
-                    this.fillColor = color;
-                } else if () {
-                    this.lines = linesInShape;
-                    this.fillColor = color;
-                    this.closed = true;
-                }
-            } else {
-                throw new IllegalArgumentException("Lines must be sequential for it to be a shape.");
+        if ((linesInShape == null) || (color == null)) {
+            throw new NullPointerException();
+        }
+        if ((closed = false) && (linesAreLegal(linesInShape))) {
+            if (needToClose = false) {
+                this.lines = linesInShape;
+                this.fillColor = color;
+            } else if (needToClose = true) {
+                this.lines = linesInShape;
+                this.fillColor = color;
+                this.closed = true;
             }
-        } else {
+        } else if (closed = true) {
             throw new IllegalArgumentException("Shape is closed, cannot add lines.");
         }
     }
 
     public ShapeIn2D(ArrayList<StraightLineIn2D> linesInShape) {
-        if (closed = false) {
-            if ((linesAreLegal(linesInShape))) {
+        if (linesInShape == null) {
+            throw new NullPointerException();
+        }
+        if ((closed = false) && (linesAreLegal(linesInShape))) {
+            if (needToClose = false) {
                 this.lines = linesInShape;
                 this.fillColor = Color.white;
-            } else {
-                throw new IllegalArgumentException("Lines must be sequential for it to be a shape.");
+            } else if (needToClose = true) {
+                this.lines = linesInShape;
+                this.fillColor = Color.white;
+                this.closed = true;
             }
-        } else {
+        } else if (closed = true) {
             throw new IllegalArgumentException("Shape is closed, cannot add lines.");
         }
     }
 
-    public boolean linesAreLegal(ArrayList<StraightLineIn2D> lines) {
+    /**
+     * Checks that lines to be added to shape are legal.
+     *
+     * @param linesToAdd the lines to add to the shape.
+     * @return true if lines are legal, false otherwise.
+     */
+    public boolean linesAreLegal(ArrayList<StraightLineIn2D> linesToAdd) {
         ArrayList<CoordinateIn2D> allCoordinates = new ArrayList<>();
         HashMap<CoordinateIn2D, Integer> studiedCoordinates = new HashMap<>();
         int numberOfEndsOfShape = 0;
+        prepareForCheck(linesToAdd, allCoordinates);
+        checkNumberOfOccurrences(allCoordinates, studiedCoordinates);
+        numberOfEndsOfShape = getNumberOfEndsOfShape(studiedCoordinates, numberOfEndsOfShape);
+        if (numberOfEndsOfShape > 2 || numberOfEndsOfShape == 1) {
+            //The shape has ended up either open only on one end, or open in more than two ends, which is illegal.
+            return false;
+        }
+        if (numberOfEndsOfShape == 2) {
+            //the shape has two open ends, which is legal
+            return true;
+        }
+        if (numberOfEndsOfShape == 0) {
+            //the shape is closed, which is legal
+            this.needToClose = true;
+            return true;
+        }
+        return false;
+    }
 
-        //save all new coordinates from all new lines in an arraylist
-        for (StraightLineIn2D newLine : lines) {
-            for (CoordinateIn2D newCoordinate : newLine.getCoordinates()) {
-                allCoordinates.add(newCoordinate);
+    /**
+     * Counts how many coordinates occur only once, which means that they correspond to one end of the shape.
+     *
+     * @param studiedCoordinates  the coordinates with their respective number of appearences in allCoordinates.
+     * @param numberOfEndsOfShape how many ends of shape are found.
+     * @return how many ends of shape are found.
+     */
+    private int getNumberOfEndsOfShape(HashMap<CoordinateIn2D, Integer> studiedCoordinates, int numberOfEndsOfShape) {
+        for (Integer value : studiedCoordinates.values()) {
+            if (value == 1) {
+                //I have found one end of the shape
+                numberOfEndsOfShape++;
+            } else if (value >= 2) {
+//            } else if (value == 2) {
+                continue;
+            }
+//            else if (value > 2) {
+//                //I have found a coordinate with too many lines attached
+//                return false;
+//            }
+        }
+        return numberOfEndsOfShape;
+    }
+
+    /**
+     * Records how many times each coordinate would appear in the shape, should the new lines be added to it.
+     *
+     * @param allCoordinates     the ArrayList containing all coordinates, both new and old (if present).
+     * @param studiedCoordinates the coordinates with their respective number of appearences in allCoordinates.
+     */
+    private void checkNumberOfOccurrences(ArrayList<CoordinateIn2D> allCoordinates, HashMap<CoordinateIn2D, Integer> studiedCoordinates) {
+        for (CoordinateIn2D coordinateInLines : allCoordinates) {
+            if (studiedCoordinates.containsValue(coordinateInLines)) {
+                int newValue = studiedCoordinates.get(coordinateInLines) + 1;
+                //I update the value
+                studiedCoordinates.put(coordinateInLines, newValue);
+            } else {
+                //It's the first time I see the coordinate, so I add it.
+                studiedCoordinates.put(coordinateInLines, 1);
             }
         }
+    }
+
+    /**
+     * Prepares the data structures to check that the lines to be added to the shape are legal.
+     *
+     * @param newLines       the new lines I want to add to the shape.
+     * @param allCoordinates the ArrayList containing all coordinates, both new and old (if present).
+     */
+    private void prepareForCheck(ArrayList<StraightLineIn2D> newLines, ArrayList<CoordinateIn2D> allCoordinates) {
         //if not empty, add old coordinates from old lines to the arraylist
         if (!this.lines.isEmpty()) {
             for (StraightLineIn2D oldLine : this.lines) {
@@ -68,72 +142,39 @@ public class ShapeIn2D implements Shape<CoordinateIn2D, StraightLineIn2D> {
                 }
             }
         }
-//        Check how many times each coordinate is present inside the arraylist.
-//        If present once, then the coordinate corresponds to one of the two ends of the shape
-//        (must check if either or both ends of the shape match the current ends of the shape,
-//        if none match, throw error, if both match set shape closed, if only one matches update one end of the shape).
-//        There *must* be either 0 or 2 ends in the new shape: if you have only one end, then two lines are overlapped.
-//        If there are overlapping lines, throw error or return false.
-//        If present twice, that's lawful and it means that two lines are connected and that coordinate will not be an
-//        end of the shape. keep analysing.
-//        TODO: i need to compare the given shape with the shape already in the array. if there is a shape already i will inevitably end up with one coordinate present more than once, if there are no lines in the shape, i must
-        for (CoordinateIn2D coordinateInLines : allCoordinates) {
-            if (studiedCoordinates.containsValue(coordinateInLines)) {
-                int newValue = studiedCoordinates.get(coordinateInLines) + 1;
-                if (newValue > 2) {
-//                  If present more than twice, then there are more than two line starting or ending at one point,
-//                  that's illegal.
-                    return false;
-                } else {
-                    studiedCoordinates.put(coordinateInLines, newValue);
-                }
-            } else {
-                studiedCoordinates.put(coordinateInLines, 1);
+        //save all new coordinates from all new lines in an arraylist
+        for (StraightLineIn2D newLine : newLines) {
+            for (CoordinateIn2D newCoordinate : newLine.getCoordinates()) {
+                allCoordinates.add(newCoordinate);
             }
         }
-        for (Integer value : studiedCoordinates.values()) {
-            if (value == 1) {
-                numberOfEndsOfShape++;
-            } else if (value == 2) {
-                continue;
-            } else if (value > 2) return false;
-        }
-        if (numberOfEndsOfShape > 2 || numberOfEndsOfShape == 1) {
-            return false;
-        }
-        if (numberOfEndsOfShape == 2) {
-            return true;
-        }
-        if (numberOfEndsOfShape == 0) {
-            //must set shape closed!!
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Checks if the coordinates of the line match one of the two ends of the shape.
-     *
-     * @param line the line to check.
-     * @return true if one of the coordinates match one of the ends, false otherwise.
-     */
-    public boolean lineIsLegal(StraightLineIn2D line) {
-        for (CoordinateIn2D coordinate : line.getCoordinates()) {
-            if ((coordinate == this.endOfShape1) || (coordinate == this.endOfShape2)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
     public void addLine(StraightLineIn2D line) {
-        //TODO: check line is legal and update end of shapes after adding
+        if (line == null) {
+            throw new NullPointerException();
+        }
+        ArrayList<StraightLineIn2D> lineToAdd = new ArrayList<>();
+        lineToAdd.add(line);
+        addLines(lineToAdd);
+    }
+
+    @Override
+    public void addLines(ArrayList<StraightLineIn2D> linesToAdd) {
+        if (linesToAdd == null) {
+            throw new NullPointerException();
+        }
+        if (linesAreLegal(linesToAdd)) {
+            for (StraightLineIn2D line : linesToAdd) {
+                this.lines.add(line);
+            }
+        }
     }
 
     @Override
     public ArrayList<StraightLineIn2D> getShapeLines() {
-        return null;
+        return this.lines;
     }
 
     @Override
@@ -148,11 +189,12 @@ public class ShapeIn2D implements Shape<CoordinateIn2D, StraightLineIn2D> {
 
     @Override
     public boolean isClosed() {
-        return false;
+        return this.closed;
     }
 
     @Override
     public void setClosed() {
-
+        this.closed = true;
     }
+
 }

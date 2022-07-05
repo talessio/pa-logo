@@ -3,6 +3,9 @@ package pa.logo.model;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * A straight line. If no color is given it is black by default.
+ */
 public class StraightLineIn2D implements Line<CoordinateIn2D> {
 
     CoordinateIn2D c1;
