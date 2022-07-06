@@ -5,7 +5,7 @@ package pa.logo;
 
 public class App {
     public String getGreeting() {
-        return "Hello World!";
+        return "There is no console app";
     }
 
     public static void main(String[] args) {

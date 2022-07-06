@@ -44,26 +44,29 @@ public class ShapeIn2DTest {
     @Test
     public void addLine() {
         ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
-        System.out.println(shape1.isClosed());
         shape1.addLine(line1);
         shape1.addLine(line2);
         shape1.addLine(line3);
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
         shape2.addLine(line4);
 
-        Assertions.assertThrows(NullPointerException.class, () -> shape1.addLine(null)); //TODO: cannot add null line
-        Assertions.assertThrows(NullPointerException.class, () -> shape2.addLine(null)); //TODO: cannot add null line
-        Assertions.assertThrows(IllegalArgumentException.class, () -> shape2.addLine(line1)); //TODO: lines must connect to at least one end of the shape e.g. if(shape.getEnds = at least one coordinate of new line) linesInShape.add(line) else throw exception
+        Assertions.assertTrue(shape1.isClosed());
+        Assertions.assertFalse(shape2.isClosed()); //TODO: all shapes are automatically always closed, check step by step why
+
+        Assertions.assertThrows(NullPointerException.class, () -> shape1.addLine(null));
+        Assertions.assertThrows(NullPointerException.class, () -> shape2.addLine(null));
         Assertions.assertThrows(IllegalArgumentException.class, () -> shape1.addLine(line1)); //TODO: cannot add same line twice
+        Assertions.assertThrows(IllegalArgumentException.class, () -> shape2.addLine(line1)); //TODO: lines must connect to at least one end of the shape e.g. if(shape.getEnds = at least one coordinate of new line) linesInShape.add(line) else throw exception
 
-        ArrayList<StraightLineIn2D> linesInMockShape1 = new ArrayList<>();
-        linesInMockShape1.add(line1);
-        linesInMockShape1.add(line2);
-        linesInMockShape1.add(line3);
-        ArrayList<StraightLineIn2D> linesInMockShape2 = new ArrayList<>();
-        linesInMockShape2.add(line4);
-
-        Assertions.assertEquals(linesInMockShape1.toString(), shape1.getShapeLines().toString());
-        Assertions.assertEquals(linesInMockShape2.toString(), shape2.getShapeLines().toString());
+//        ArrayList<StraightLineIn2D> mockShape1 = new ArrayList<>();
+//        mockShape1.add(line1);
+//        mockShape1.add(line2);
+//        mockShape1.add(line3);
+//        ArrayList<StraightLineIn2D> mockShape2 = new ArrayList<>();
+//        mockShape2.add(line4);
+//        ArrayList<StraightLineIn2D> linesFromMockShape1 = new ArrayList<>();
+//
+//        Assertions.assertEquals(mockShape1, shape1.getShapeLines());
+//        Assertions.assertEquals(mockShape2.toString(), shape2.getShapeLines().toString());
     }
 }
