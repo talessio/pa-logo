@@ -16,22 +16,26 @@ public interface Shape<C extends Coordinate, L extends Line<C>> {
      *
      * @param lineToAdd the line to be added.
      */
-    void addLine(L lineToAdd);
+    void addLineToShape(L lineToAdd);
 
     /**
      * Adds a number of lines to the shape.
      *
      * @param linesToAdd the lines to be added.
      */
-    void addLines(ArrayList<L> linesToAdd);
+    void addLinesToShape(ArrayList<L> linesToAdd);
 
     /**
      * Get the lines contained in the shape.
+     *
+     * @return an ArrayList with all the lines in the shape.
      */
     ArrayList<L> getShapeLines();
 
     /**
      * Get the color of the shape.
+     *
+     * @return the color of the shape.
      */
     Color getShapeColor();
 

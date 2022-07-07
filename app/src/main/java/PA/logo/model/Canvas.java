@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Defines the canvas on which one draws.
  */
-public interface Canvas<N extends Number, C extends Coordinate, L extends Line<C>, S extends Shape<C, L>> {
+public interface Canvas<C extends Coordinate, L extends Line<C>, S extends Shape<C, L>> {
 
     /**
      * Gets all the shapes in the canvas.
@@ -34,16 +34,7 @@ public interface Canvas<N extends Number, C extends Coordinate, L extends Line<C
      */
     void setCanvasColor(Color color);
 
-    /**
-     * Obtain the size of the area.
-     *
-     * @return the size of the area.
-     */
-    N getCanvasSize();
+    void addShapeToCanvas(S shape);
 
-    /**
-     * Set the size of the area. Must have at least height and base.
-     */
-    void setCanvasSize();
-
+    void removeShapeFromCanvas(S shape);
 }

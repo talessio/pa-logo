@@ -45,12 +45,12 @@ public class StraightLineIn2DTest {
     public void getCoordinatesTest() {
         ShapeIn2D shape1;
         shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
-        shape1.addLine(line1);
-        shape1.addLine(line2);
-        shape1.addLine(line3);
+        shape1.addLineToShape(line1);
+        shape1.addLineToShape(line2);
+        shape1.addLineToShape(line3);
         shape1.setClosed();
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
-        shape2.addLine(line4);
+        shape2.addLineToShape(line4);
 
         Assertions.assertSame(line1.getCoordinates().get(0), coordinate1);
         Assertions.assertSame(line1.getCoordinates().get(1), coordinate2);
@@ -63,12 +63,12 @@ public class StraightLineIn2DTest {
     @Test
     public void getLineColorTest() {
         ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
-        shape1.addLine(line1);
-        shape1.addLine(line2);
-        shape1.addLine(line3);
+        shape1.addLineToShape(line1);
+        shape1.addLineToShape(line2);
+        shape1.addLineToShape(line3);
         shape1.setClosed();
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
-        shape2.addLine(line4);
+        shape2.addLineToShape(line4);
 
         Assertions.assertSame(line1.getLineColor(), Color.black);
         Assertions.assertSame(line2.getLineColor(), Color.yellow);

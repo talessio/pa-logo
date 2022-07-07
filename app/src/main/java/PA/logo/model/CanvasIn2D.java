@@ -3,54 +3,96 @@ package pa.logo.model;
 import java.awt.*;
 import java.util.ArrayList;
 
-//TODO: add javadoc
-public class CanvasIn2D implements Canvas<Double, CoordinateIn2D, StraightLineIn2D, ShapeIn2D> {
-    double height;
-    double base;
+/**
+ * Implements a canvas in two dimensions to draw upon.
+ */
+public class CanvasIn2D implements Canvas<CoordinateIn2D, StraightLineIn2D, ShapeIn2D> {
+    private final double height;
+    private final double base;
+    private Color canvasColor = Color.white;
 
     /**
      * Array List of all the shapes that are on the canvas.
-     * Shapes can be of any type: single lines, a concatenation of lines, straight or curved lines, coloured or not, closed or not.
      */
     ArrayList<ShapeIn2D> allShapesInCanvas = new ArrayList<>();
 
-    //TODO
-    public void mergeShapes(ShapeIn2D shape1, ShapeIn2D shape2) { //check if void ok
-
+    public CanvasIn2D(double height, double base, ArrayList<ShapeIn2D> shapes) {
+        this.height = height;
+        this.base = base;
+        this.allShapesInCanvas = shapes;
     }
 
-    //TODO
+    public CanvasIn2D(double height, double base, Color canvasColor, ArrayList<ShapeIn2D> shapes) {
+        this.height = height;
+        this.base = base;
+        this.canvasColor = canvasColor;
+        this.allShapesInCanvas = shapes;
+    }
+
+    /**
+     * Gets the height of the canvas.
+     *
+     * @return the height of the canvas.
+     */
+    public double getHeight() {
+        return height;
+    }
+
+    /**
+     * Gets the base of the canvas.
+     *
+     * @return the base of the canvas.
+     */
+    public double getBase() {
+        return base;
+    }
+
+    /**
+     * Gets the area of the canvas.
+     *
+     * @return the area of the canvas.
+     */
+    public double getCanvasArea() {
+        return this.base * this.height;
+    }
+
+    @Override
+    public void addShapeToCanvas(ShapeIn2D shape) {
+        this.allShapesInCanvas.add(shape);
+    }
+
+    @Override
+    public void removeShapeFromCanvas(ShapeIn2D shape) {
+        this.allShapesInCanvas.remove(shape);
+    }
+
+    public ShapeIn2D mergeShapes(ShapeIn2D shape1, ShapeIn2D shape2) {
+        ShapeIn2D newShape = new ShapeIn2D(shape1.getShapeLines(), shape1.getShapeColor());
+        newShape.addLinesToShape(shape2.getShapeLines());
+        this.removeShapeFromCanvas(shape1);
+        this.removeShapeFromCanvas(shape2);
+        this.addShapeToCanvas(newShape);
+        return newShape;
+    }
+
     @Override
     public ArrayList<ShapeIn2D> getAllShapesInCanvas() {
-        return null;
+        return allShapesInCanvas;
     }
 
-    //TODO
     @Override
     public CoordinateIn2D getHome() {
-        return null;
+        return new CoordinateIn2D(base / 2, height / 2);
     }
 
-    //TODO
     @Override
     public Color getCanvasColor() {
-        return null;
+        return this.canvasColor;
     }
 
-    //TODO
     @Override
     public void setCanvasColor(Color color) {
-    }
-
-    //TODO
-    @Override
-    public Double getCanvasSize() {
-        return null;
-    }
-
-    //TODO
-    @Override
-    public void setCanvasSize() {
-
+        if (color == null) throw new NullPointerException("Color cannot be null");
+        this.canvasColor = color;
     }
 }
