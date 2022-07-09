@@ -1,5 +1,6 @@
 package pa.logo;
 
+import org.checkerframework.checker.units.qual.C;
 import pa.logo.model.CoordinateIn2D;
 import pa.logo.model.ShapeIn2D;
 import pa.logo.model.StraightLineIn2D;
@@ -15,128 +16,111 @@ public class LegalityChecker {
      * @param line  the line.
      * @param shape the shape it belongs to.
      */
-    public void lineIsLegal(StraightLineIn2D line, ShapeIn2D shape) {
+    public void lineIsLegal(StraightLineIn2D line, ShapeIn2D shape) throws NullPointerException, IllegalArgumentException {
+        if (shape.isClosed()) throw new IllegalArgumentException("Shape is closed to new lines.");
         if (line == null) throw new NullPointerException("Line cannot be null.");
-        if (isDuplicate(line, shape)) {
-            throw new IllegalArgumentException("Cannot have duplicate lines.");
-        }
+        if (isDuplicate(line, shape)) throw new IllegalArgumentException("Cannot have duplicate lines.");
     }
 
     /**
      * Checks that the shape doesn't violate any rules.
      *
-     * @param shape the shape.
+     * @param lines the lines from the shape.
+     * @return true if the shape is legal, false otherwise.
      */
-    public void shapeIsLegal(ShapeIn2D shape) {
-        if (hasIllegalNumberOfEnds(shape)) {
-            throw new IllegalArgumentException("Shape has an illegal number of ends.");
-        }
-        //TODO: figure out if you need to check for more than that.
+    public boolean shapeIsLegal(ArrayList<StraightLineIn2D> lines) {
+        return !hasIllegalNumberOfEnds(lines);
     }
 
-    //TODO implement
-    //TODO add javadoc
-    private boolean hasIllegalNumberOfEnds(ShapeIn2D shape) {
-        ArrayList<CoordinateIn2D> coordinates = getAllCoordinates(shape);
-        return false;
+    /**
+     * Checks if needs to be closed.
+     *
+     * @param lines the lines.
+     * @return true if the shape needs to be set closed, false otherwise.
+     */
+    public boolean needsToClose(ArrayList<StraightLineIn2D> lines) {
+        ArrayList<CoordinateIn2D> coordinates = getAllCoordinates(lines);
+        HashMap<CoordinateIn2D, Integer> occurrences = generateNumberOfOccurrences(coordinates);
+        int ends = getNumberOfEndsOfShape(occurrences);
+        return ends == 0;
+    }
+
+    /**
+     * Checks that the shape has either 2 or 0 ends.
+     * If it has 1 or more than 2, then the shape is either open only on one end, or open on more than 2 ends.
+     * If it has 0 ends, the shape is closed.
+     * If it has 2 ends, the shape is open.
+     *
+     * @param lines the lines from the shape.
+     * @return true if the shape has an illegal number of ends, false otherwise.
+     */
+    private boolean hasIllegalNumberOfEnds(ArrayList<StraightLineIn2D> lines) {
+        //get all the coordinates from all the lines inside the shape
+        ArrayList<CoordinateIn2D> coordinates = getAllCoordinates(lines);
+        //check how many times each coordinate appears and save it into a hashmap
+        HashMap<CoordinateIn2D, Integer> occurrences = generateNumberOfOccurrences(coordinates);
+        //check how many ends the shape has by counting the number of ends in the shape
+        int ends = getNumberOfEndsOfShape(occurrences);
+        if (ends > 2 || ends == 1) {
+            return true;
+        } else if (ends == 2) {
+            return false;
+        } else if (ends == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
      * Gets all the coordinates from all the lines in the given shape.
      *
-     * @param shape the shape.
+     * @param lines the lines in the shape.
      * @return an ArrayList with all the coordinates from all the lines inside the shape.
      */
-    private ArrayList<CoordinateIn2D> getAllCoordinates(ShapeIn2D shape) {
+    private ArrayList<CoordinateIn2D> getAllCoordinates(ArrayList<StraightLineIn2D> lines) {
         ArrayList<CoordinateIn2D> coordinates = new ArrayList<>();
-        for (StraightLineIn2D line : shape.getShapeLines()) {
+        for (StraightLineIn2D line : lines) {
             coordinates.addAll(line.getCoordinates());
         }
         return coordinates;
     }
 
-    //TODO fix
     /**
-     * Checks that the shape has either 2 or 0 ends. If it has 1 or more than 2, then the shape is either open only on one end, or open on more than 2 ends. If it has 0 ends, the shape is closed. If it has 2 ends, the shape is open.
+     * Records how many times each coordinate appears in the given ArrayList.
      *
-     * @param numberOfEndsOfShape the number of ends in the shape.
-     * @return true if it has a legal number of ends, false otherwise.
+     * @param coordinates the ArrayList containing all coordinates.
+     * @return a HashMap with each coordinate and how many times it occurs.
      */
-    private boolean shapeHasLegalNumberOfEnds(int numberOfEndsOfShape) {
-        if (numberOfEndsOfShape > 2 || numberOfEndsOfShape == 1) {
-            return false;
-        }
-        if (numberOfEndsOfShape == 2) {
-            return true;
-        }
-        if (numberOfEndsOfShape == 0) {
-            this.needToClose = true;
-            return true;
-        }
-        return false;
-    }
-
-    //TODO fix
-    /**
-     * Records how many times each coordinate would appear in the shape, should the new lines be added to it.
-     *
-     * @param allCoordinates     the ArrayList containing all coordinates, both new and old (if present).
-     * @param studiedCoordinates the coordinates with their respective number of appearences in allCoordinates.
-     */
-    private void generateNumberOfOccurrences(ArrayList<CoordinateIn2D> allCoordinates, HashMap<CoordinateIn2D, Integer> studiedCoordinates) {
-        for (CoordinateIn2D coordinateInLines : allCoordinates) {
-            if (studiedCoordinates.containsValue(coordinateInLines)) {
-                int newValue = studiedCoordinates.get(coordinateInLines) + 1;
+    private HashMap<CoordinateIn2D, Integer> generateNumberOfOccurrences(ArrayList<CoordinateIn2D> coordinates) {
+        HashMap<CoordinateIn2D, Integer> coordinatesWithOccurrence = new HashMap<>();
+        for (CoordinateIn2D coordinate : coordinates) {
+            if (coordinatesWithOccurrence.containsKey(coordinate)) {
+                int newValue = coordinatesWithOccurrence.get(coordinate) + 1;
                 //I update the value
-                studiedCoordinates.put(coordinateInLines, newValue);
+                coordinatesWithOccurrence.put(coordinate, newValue);
             } else {
                 //It's the first time I see the coordinate, so I add it.
-                studiedCoordinates.put(coordinateInLines, 1);
+                coordinatesWithOccurrence.put(coordinate, 1);
             }
         }
+        return coordinatesWithOccurrence;
     }
 
-    //TODO fix
     /**
      * Counts how many coordinates occur only once, which means that they correspond to one end of the shape.
      *
-     * @param studiedCoordinates  the coordinates with their respective number of appearences in allCoordinates.
-     * @param numberOfEndsOfShape how many ends of shape are found.
+     * @param studiedCoordinates the coordinates with their respective number of appearences in allCoordinates.
      * @return how many ends of shape are found.
      */
-    private int getNumberOfEndsOfShape(HashMap<CoordinateIn2D, Integer> studiedCoordinates, int numberOfEndsOfShape) {
+    private int getNumberOfEndsOfShape(HashMap<CoordinateIn2D, Integer> studiedCoordinates) {
+        int numberOfEndsOfShape = 0;
         for (Integer value : studiedCoordinates.values()) {
             if (value == 1) {
                 numberOfEndsOfShape++;
             }
         }
         return numberOfEndsOfShape;
-    }
-
-    //TODO fix
-    /**
-     * Checks that lines to be added to shape are legal.
-     *
-     * @param linesToAdd the lines to add to the shape.
-     * @return true if lines are legal, false otherwise.
-     */
-    private boolean linesAreLegal(ArrayList<StraightLineIn2D> linesToAdd) {
-//        ArrayList<CoordinateIn2D> newLinesCoordinates = new ArrayList<>();
-//        getAllCoordinates(linesToAdd, newLinesCoordinates);
-        ArrayList<CoordinateIn2D> allCoordinates = new ArrayList<>();
-        if (this.lines.isEmpty()) {
-            allCoordinates = newLinesCoordinates;
-        } else {
-            ArrayList<CoordinateIn2D> oldLinesCoordinates = new ArrayList<>();
-            getAllCoordinates(this.lines, oldLinesCoordinates);
-            allCoordinates.addAll(newLinesCoordinates);
-            allCoordinates.addAll(oldLinesCoordinates);
-        }
-        HashMap<CoordinateIn2D, Integer> studiedCoordinates = new HashMap<>();
-        int numberOfEndsOfShape = 0;
-        generateNumberOfOccurrences(allCoordinates, studiedCoordinates);
-        numberOfEndsOfShape = getNumberOfEndsOfShape(studiedCoordinates, numberOfEndsOfShape);
-        return shapeHasLegalNumberOfEnds(numberOfEndsOfShape);
     }
 
     /**

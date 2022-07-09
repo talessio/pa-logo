@@ -1,5 +1,7 @@
 package pa.logo.model;
 
+import pa.logo.LegalityChecker;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -17,12 +19,16 @@ public class CanvasIn2D implements Canvas<CoordinateIn2D, StraightLineIn2D, Shap
     ArrayList<ShapeIn2D> allShapesInCanvas = new ArrayList<>();
 
     public CanvasIn2D(double height, double base, ArrayList<ShapeIn2D> shapes) {
+        if (height == 0.0 || base == 0.0)
+            throw new IllegalArgumentException("Height or base have to be bigger than 0.0");
         this.height = height;
         this.base = base;
         this.allShapesInCanvas = shapes;
     }
 
     public CanvasIn2D(double height, double base, Color canvasColor, ArrayList<ShapeIn2D> shapes) {
+        if (height == 0.0 || base == 0.0)
+            throw new IllegalArgumentException("Height or base have to be bigger than 0.0");
         this.height = height;
         this.base = base;
         this.canvasColor = canvasColor;
@@ -56,23 +62,41 @@ public class CanvasIn2D implements Canvas<CoordinateIn2D, StraightLineIn2D, Shap
         return this.base * this.height;
     }
 
+    /**
+     * Merges two shapes into one.
+     *
+     * @param shape1 the first shape.
+     * @param shape2 the second shape.
+     * @param color  the new fill color for the merged shape.
+     * @return the new shape.
+     */
+    public ShapeIn2D mergeShapes(ShapeIn2D shape1, ShapeIn2D shape2, Color color) throws NullPointerException, IllegalArgumentException {
+        if (shape1 == null || shape2 == null || color == null) {
+            throw new NullPointerException();
+        }
+        ShapeIn2D newShape = new ShapeIn2D(shape1.getShapeLines(), color);
+        newShape.addLinesToShape(shape2.getShapeLines());
+        LegalityChecker checker = new LegalityChecker();
+        if (checker.shapeIsLegal(newShape.getShapeLines())) {
+            this.removeShapeFromCanvas(shape1);
+            this.removeShapeFromCanvas(shape2);
+            this.addShapeToCanvas(newShape);
+            return newShape;
+        } else {
+            throw new IllegalArgumentException("Impossible to merge the two shapes.");
+        }
+    }
+
     @Override
     public void addShapeToCanvas(ShapeIn2D shape) {
+        if (shape == null) throw new NullPointerException();
         this.allShapesInCanvas.add(shape);
     }
 
     @Override
     public void removeShapeFromCanvas(ShapeIn2D shape) {
+        if (shape == null) throw new NullPointerException();
         this.allShapesInCanvas.remove(shape);
-    }
-
-    public ShapeIn2D mergeShapes(ShapeIn2D shape1, ShapeIn2D shape2) {
-        ShapeIn2D newShape = new ShapeIn2D(shape1.getShapeLines(), shape1.getShapeColor());
-        newShape.addLinesToShape(shape2.getShapeLines());
-        this.removeShapeFromCanvas(shape1);
-        this.removeShapeFromCanvas(shape2);
-        this.addShapeToCanvas(newShape);
-        return newShape;
     }
 
     @Override
@@ -91,7 +115,7 @@ public class CanvasIn2D implements Canvas<CoordinateIn2D, StraightLineIn2D, Shap
     }
 
     @Override
-    public void setCanvasColor(Color color) {
+    public void setCanvasColor(Color color) throws NullPointerException {
         if (color == null) throw new NullPointerException("Color cannot be null");
         this.canvasColor = color;
     }

@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Defines the cursor.
  */
-public interface Cursor<T extends Number> {
+public interface Cursor<T extends Number, K extends Number> {
 
     /**
      * Moves the cursor forwards in the direction it faces.
@@ -26,14 +26,14 @@ public interface Cursor<T extends Number> {
      *
      * @param angle the degrees by which the cursor should rotate counterclockwise.
      */
-    void left(T angle);
+    void left(K angle);
 
     /**
      * Rotates the cursor clockwise.
      *
      * @param angle the degrees by which the cursor should rotate clockwise.
      */
-    void right(T angle);
+    void right(K angle);
 
     /**
      * Clears the canvas.

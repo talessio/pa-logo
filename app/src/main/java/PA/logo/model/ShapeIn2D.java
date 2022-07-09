@@ -13,41 +13,26 @@ import java.util.Objects;
  */
 public class ShapeIn2D implements Shape<CoordinateIn2D, StraightLineIn2D> {
 
-    private Color fillColor = Color.white;
+    private Color fillColor;
     private boolean closed = false;
 
     /**
      * ArrayList of all lines in the shape. Can contain any number of connected lines.
      */
     private ArrayList<StraightLineIn2D> lines = new ArrayList<>();
-    private boolean needToClose = false;
+
 
     public ShapeIn2D(ArrayList<StraightLineIn2D> linesInShape, Color color) {
-        LegalityChecker checker = new LegalityChecker();
-        for (StraightLineIn2D line : linesInShape) {
-            checker.lineIsLegal(line, this);
-        }
-        if (needToClose) {
-            this.lines = linesInShape;
+        this.addLinesToShape(linesInShape);
+        if (this.closed) {
             this.fillColor = color;
-            this.closed = true;
         } else {
-            this.lines = linesInShape;
-            this.fillColor = color;
+            throw new IllegalArgumentException("Open shapes cannot have fill color.");
         }
     }
 
     public ShapeIn2D(ArrayList<StraightLineIn2D> linesInShape) {
-        LegalityChecker checker = new LegalityChecker();
-        for (StraightLineIn2D line : linesInShape) {
-            checker.lineIsLegal(line, this);
-        }
-        if (needToClose) {
-            this.lines = linesInShape;
-            this.closed = true;
-        } else {
-            this.lines = linesInShape;
-        }
+        this.addLinesToShape(linesInShape);
     }
 
     @Override
@@ -58,13 +43,27 @@ public class ShapeIn2D implements Shape<CoordinateIn2D, StraightLineIn2D> {
     }
 
     @Override
-    public void addLinesToShape(ArrayList<StraightLineIn2D> linesToAdd) {
+    public void addLinesToShape(ArrayList<StraightLineIn2D> linesToAdd) throws IllegalArgumentException {
         LegalityChecker checker = new LegalityChecker();
-        checker.shapeIsLegal(this);
+        ArrayList<StraightLineIn2D> allLines = new ArrayList<>();
         for (StraightLineIn2D line : linesToAdd) {
             checker.lineIsLegal(line, this);
+            allLines.add(line);
         }
-        this.lines.addAll(linesToAdd);
+        //putting new lines and old lines together in a mock shape to test
+        if (!this.lines.isEmpty()) {
+            allLines.addAll(this.lines);
+        }
+        //check that lines old lines and new lines don't conflict with each other
+        if (checker.shapeIsLegal(allLines)) {
+            //if passed, i add new lines to the actual shape
+            this.lines.addAll(linesToAdd);
+        } else {
+            throw new IllegalArgumentException("Cannot add lines to the shape.");
+        }
+        if (checker.needsToClose(allLines)) {
+            this.closed = true;
+        }
     }
 
     @Override
@@ -78,7 +77,7 @@ public class ShapeIn2D implements Shape<CoordinateIn2D, StraightLineIn2D> {
     }
 
     @Override
-    public void setShapeColor(Color color) {
+    public void setShapeColor(Color color) throws NullPointerException {
         if (color == null) throw new NullPointerException();
         this.fillColor = color;
     }
