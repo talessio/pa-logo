@@ -23,29 +23,4 @@ public interface Line<C extends Coordinate> {
      * @return the color of the line.
      */
     Color getLineColor();
-
-//    /**
-//     * Gets the line with the specified coordinates.
-//     *
-//     * @param start the start of the line.
-//     * @param end   the end of the line.
-//     * @return the line.
-//     */
-//    L getLine(C start, C end);
-//
-//    /**
-//     * Gets all lines that start from a certain point.
-//     *
-//     * @param start the start of the line.
-//     * @return an ArrayList of lines.
-//     */
-//    ArrayList<L> getAllLinesFrom(C start);
-//
-//    /**
-//     * Gets all lines that start, end or pass through a certain point.
-//     *
-//     * @param coordinate the coordinate.
-//     * @return an ArrayList of lines.
-//     */
-//    ArrayList<L> getAllLinesAt(C coordinate);
 }

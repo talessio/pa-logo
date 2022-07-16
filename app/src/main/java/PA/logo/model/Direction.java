@@ -1,14 +1,22 @@
 package pa.logo.model;
 
-public class Direction {
+public interface Direction<N extends Number> {
 
-    public double clockwise(double currentDegrees, double degreesToIncrement) {
-        int x = (int) ((currentDegrees + degreesToIncrement) / 360);
-        return ((currentDegrees + degreesToIncrement) - (360 * Math.abs(x)));
-    }
+    /**
+     * Turns the cursor by some degrees in a clockwise direction.
+     *
+     * @param currentDegrees     the degrees indicating where the cursor currently faces.
+     * @param degreesToIncrement the degrees by which I want the cursor to turn clockwise.
+     * @return the new direction of the cursor in degrees.
+     */
+    N clockwise(N currentDegrees, N degreesToIncrement);
 
-    public double counterclockwise(double currentDegrees, double degreesToDecrement) {
-        int x = (int) ((currentDegrees - degreesToDecrement) / 360);
-        return ((currentDegrees - degreesToDecrement) - (360 * Math.abs(x)));
-    }
+    /**
+     * Turns the cursor by some degrees in a counterclockwise direction.
+     *
+     * @param currentDegrees     the degrees indicating where the cursor currently faces.
+     * @param degreesToDecrement the degrees by which I want the cursor to turn counterclockwise.
+     * @return the new direction of the cursor in degrees.
+     */
+    N counterclockwise(N currentDegrees, N degreesToDecrement);
 }

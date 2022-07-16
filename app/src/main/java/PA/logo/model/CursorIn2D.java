@@ -1,46 +1,100 @@
 package pa.logo.model;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Implements the cursor for a 2D canvas.
  */
-public class CursorIn2D implements Cursor<Double, Double> {
+public class CursorIn2D implements Cursor<Double, Integer, CoordinateIn2D, StraightLineIn2D, ShapeIn2D, CanvasIn2D> {
 
     private CanvasIn2D canvas;
     private CoordinateIn2D currentPosition;
-    private double currentDirection;
-    Color color;
+    private int currentDirection;
+    private Color color;
+    private int penSize;
+    private boolean isWriting;
 
     public CursorIn2D(CanvasIn2D canvas) {
         this.canvas = canvas;
         this.currentPosition = new CoordinateIn2D(canvas.getBase() / 2, canvas.getHeight() / 2);
-        this.currentDirection = 0.0;
+        this.currentDirection = 0;
         this.color = Color.black;
+        this.penSize = 1;
+        this.isWriting = true;
     }
 
-    //TODO
+    /**
+     * Gets the current position of the cursor.
+     *
+     * @return the current position.
+     */
+    public CoordinateIn2D getCurrentPosition() {
+        return currentPosition;
+    }
+
+    /**
+     * Gets the current direction of the cursor.
+     *
+     * @return the current direction.
+     */
+    public int getCurrentDirection() {
+        return currentDirection;
+    }
+
+    /**
+     * Gets the current pen color.
+     *
+     * @return the current pen color.
+     */
+    public Color getPenColor() {
+        return this.color;
+    }
+
     @Override
     public void forward(Double distance) {
-
+        CoordinateIn2D newPosition = this.currentPosition;
+        if ((this.currentDirection >= 0 && this.currentDirection < 90) || (this.currentDirection <= 360 && this.currentDirection > 270)) {
+            newPosition.increaseXBy(distance);
+        }
+        if (this.currentDirection > 0 && this.currentDirection < 180) {
+            newPosition.increaseYBy(distance);
+        }
+        if (this.currentDirection > 90 && this.currentDirection < 270) {
+            newPosition.decreaseXBy(distance);
+        }
+        if (this.currentDirection > 180 && this.currentDirection < 360) {
+            newPosition.decreaseYBy(distance);
+        }
+        this.currentPosition = checkAgainstCanvasSize(newPosition);
     }
 
-    //TODO
     @Override
     public void backward(Double distance) {
-
+        CoordinateIn2D newPosition = this.currentPosition;
+        if ((this.currentDirection >= 0 && this.currentDirection < 90) || (this.currentDirection <= 360 && this.currentDirection > 270)) {
+            newPosition.decreaseXBy(distance);
+        }
+        if (this.currentDirection > 0 && this.currentDirection < 180) {
+            newPosition.decreaseYBy(distance);
+        }
+        if (this.currentDirection > 90 && this.currentDirection < 270) {
+            newPosition.increaseXBy(distance);
+        }
+        if (this.currentDirection > 180 && this.currentDirection < 360) {
+            newPosition.increaseYBy(distance);
+        }
+        this.currentPosition = checkAgainstCanvasSize(newPosition);
     }
 
     @Override
-    public void left(Double angle) {
-        Direction direct = new Direction();
+    public void left(Integer angle) {
+        DirectionIn2D direct = new DirectionIn2D();
         this.currentDirection = direct.counterclockwise(this.currentDirection, angle);
     }
 
     @Override
-    public void right(Double angle) {
-        Direction direct = new Direction();
+    public void right(Integer angle) {
+        DirectionIn2D direct = new DirectionIn2D();
         this.currentDirection = direct.clockwise(this.currentDirection, angle);
     }
 
@@ -56,16 +110,14 @@ public class CursorIn2D implements Cursor<Double, Double> {
         this.currentPosition = new CoordinateIn2D(canvas.getBase() / 2, canvas.getHeight() / 2);
     }
 
-    //TODO
     @Override
     public void penUp() {
-
+        this.isWriting = true;
     }
 
-    //TODO
     @Override
     public void penDown() {
-
+        this.isWriting = false;
     }
 
     @Override
@@ -73,27 +125,46 @@ public class CursorIn2D implements Cursor<Double, Double> {
         this.color = color;
     }
 
-    //TODO
     @Override
-    public void setFillColor(Color color) {
-        
+    public void setFillColor(Color color, ShapeIn2D shape) {
+        if (shape.isClosed()) {
+            shape.setShapeColor(color);
+        }
     }
 
-    //TODO
     @Override
-    public void setScreenColor(Color color) {
-
+    public void setScreenColor(Color color, CanvasIn2D canvas) {
+        canvas.setCanvasColor(color);
     }
 
-    //TODO
     @Override
     public void setPenSize(int size) {
-
+        this.penSize = size;
     }
 
     //TODO
     @Override
     public void repeat(int numberOfTimes) {
 
+    }
+
+    /**
+     * Checks the position against the size of the canvas, if it's too big or small it repositions it within the size.
+     *
+     * @param position the potential position.
+     * @return the correct position.
+     */
+    private CoordinateIn2D checkAgainstCanvasSize(CoordinateIn2D position) {
+        if (position.getX() > canvas.getBase()) {
+            position.setX(canvas.getBase());
+        } else if (position.getX() < 0) {
+            position.setX(0.0);
+        }
+        if (position.getY() > canvas.getHeight()) {
+            position.setY(canvas.getHeight());
+        } else if (position.getY() < 0) {
+            position.setY(0.0);
+        }
+        return position;
     }
 }

@@ -34,7 +34,17 @@ public interface Canvas<C extends Coordinate, L extends Line<C>, S extends Shape
      */
     void setCanvasColor(Color color);
 
+    /**
+     * Add a new shape to the canvas.
+     *
+     * @param shape the shape to add.
+     */
     void addShapeToCanvas(S shape);
 
+    /**
+     * Remove a shape from the canvas.
+     *
+     * @param shape the shape to remove.
+     */
     void removeShapeFromCanvas(S shape);
 }

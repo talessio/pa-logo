@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Defines the cursor.
  */
-public interface Cursor<T extends Number, K extends Number> {
+public interface Cursor<T extends Number, K extends Number, C extends Coordinate, L extends Line<C>, S extends Shape<C, L>, X extends Canvas<C, L, S>> {
 
     /**
      * Moves the cursor forwards in the direction it faces.
@@ -67,14 +67,14 @@ public interface Cursor<T extends Number, K extends Number> {
      *
      * @param color the chosen color in RGB.
      */
-    void setFillColor(Color color);
+    void setFillColor(Color color, S shape);
 
     /**
      * Sets the screen color.
      *
      * @param color the chosen color in RGB.
      */
-    void setScreenColor(Color color);
+    void setScreenColor(Color color, X canvas);
 
     /**
      * Sets the pen size.
@@ -88,5 +88,5 @@ public interface Cursor<T extends Number, K extends Number> {
      *
      * @param numberOfTimes how many times to repeat the sequence of commands.
      */
-    void repeat(int numberOfTimes); //TODO: implement properly
+    void repeat(int numberOfTimes);
 }
