@@ -1,5 +1,10 @@
 package pa.logo.model;
 
+/**
+ * Represents the direction of the cursor. Can be moved clockwise or counterclockwise.
+ *
+ * @param <N> the value used to count degrees.
+ */
 public interface Direction<N extends Number> {
 
     /**

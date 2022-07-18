@@ -16,11 +16,6 @@ public interface Canvas<C extends Coordinate, L extends Line<C>, S extends Shape
     ArrayList<S> getAllShapesInCanvas();
 
     /**
-     * Returns the coordinates for the home.
-     */
-    C getHome();
-
-    /**
      * Get the color of the area.
      *
      * @return the color in RGB.

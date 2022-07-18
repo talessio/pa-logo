@@ -1,9 +1,7 @@
 package pa.logo;
 
 import org.checkerframework.checker.units.qual.C;
-import pa.logo.model.CoordinateIn2D;
-import pa.logo.model.ShapeIn2D;
-import pa.logo.model.StraightLineIn2D;
+import pa.logo.model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -139,4 +137,13 @@ public class LegalityChecker {
         return false;
     }
 
+    /**
+     * Checks that the coordinate doesn't violate any rules.
+     *
+     * @param coordinate the coordinate.
+     * @param canvas     the canvas.
+     */
+    public void coordinateIsLegal(CoordinateIn2D coordinate, CanvasIn2D canvas) {
+
+    }
 }

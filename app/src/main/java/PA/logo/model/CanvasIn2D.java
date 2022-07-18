@@ -105,11 +105,6 @@ public class CanvasIn2D implements Canvas<CoordinateIn2D, StraightLineIn2D, Shap
     }
 
     @Override
-    public CoordinateIn2D getHome() {
-        return new CoordinateIn2D(base / 2, height / 2);
-    }
-
-    @Override
     public Color getCanvasColor() {
         return this.canvasColor;
     }
@@ -118,5 +113,14 @@ public class CanvasIn2D implements Canvas<CoordinateIn2D, StraightLineIn2D, Shap
     public void setCanvasColor(Color color) throws NullPointerException {
         if (color == null) throw new NullPointerException("Color cannot be null");
         this.canvasColor = color;
+    }
+
+    /**
+     * Returns the coordinates for the home.
+     *
+     * @return the coordinates for the home.
+     */
+    public CoordinateIn2D getHome() {
+        return new CoordinateIn2D(base / 2, height / 2);
     }
 }
