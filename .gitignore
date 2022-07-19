@@ -211,3 +211,5 @@ app/src/main/java/.DS_Store
 .idea/modules/app/PA-Logo.app.main.iml
 .idea/modules/app/PA-Logo.app.test.iml
 .idea/modules/PA-Logo.iml
+.idea/.name
+gradlew
