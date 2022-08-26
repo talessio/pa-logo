@@ -121,6 +121,6 @@ public class CanvasIn2D implements Canvas<CoordinateIn2D, StraightLineIn2D, Shap
      * @return the coordinates for the home.
      */
     public CoordinateIn2D getHome() {
-        return new CoordinateIn2D(base / 2, height / 2);
+        return new CoordinateIn2D(base / 2, height / 2, this);
     }
 }

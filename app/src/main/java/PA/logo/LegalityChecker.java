@@ -1,12 +1,27 @@
 package pa.logo;
 
-import org.checkerframework.checker.units.qual.C;
 import pa.logo.model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LegalityChecker {
+
+    /**
+     * Checks that the coordinates don't violate any rules.
+     *
+     * @param x      the x coordinate.
+     * @param y      the y coordinate.
+     * @param canvas the canvas.
+     */
+    public boolean coordinatesAreLegal(double x, double y, CanvasIn2D canvas) {
+        if (x > canvas.getBase() || x > canvas.getHeight()) {
+            if (y > canvas.getBase() || y > canvas.getHeight()) {
+                return false;
+            }
+        }
+        return !(x < 0.0) && !(y < 0.0);
+    }
 
     /**
      * Checks that the line doesn't violate any rules.
@@ -135,15 +150,5 @@ public class LegalityChecker {
             }
         }
         return false;
-    }
-
-    /**
-     * Checks that the coordinate doesn't violate any rules.
-     *
-     * @param coordinate the coordinate.
-     * @param canvas     the canvas.
-     */
-    public void coordinateIsLegal(CoordinateIn2D coordinate, CanvasIn2D canvas) {
-
     }
 }

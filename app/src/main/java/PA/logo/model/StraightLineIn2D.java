@@ -1,12 +1,15 @@
 package pa.logo.model;
 
 import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
  * A straight line. If no color is given it is black by default.
  */
-public class StraightLineIn2D implements Line<CoordinateIn2D> {
+public class StraightLineIn2D extends Line2D implements Line<CoordinateIn2D> {
 
     CoordinateIn2D c1;
     CoordinateIn2D c2;
@@ -38,4 +41,44 @@ public class StraightLineIn2D implements Line<CoordinateIn2D> {
         return this.color;
     }
 
+    @Override
+    public double getX1() {
+        return this.c1.getX();
+    }
+
+    @Override
+    public double getY1() {
+        return this.c1.getY();
+    }
+
+    @Override
+    public CoordinateIn2D getP1() {
+        return this.c1;
+    }
+
+    @Override
+    public double getX2() {
+        return this.c2.getX();
+    }
+
+    @Override
+    public double getY2() {
+        return this.c2.getY();
+    }
+
+    @Override
+    public CoordinateIn2D getP2() {
+        return this.c2;
+    }
+
+    @Override
+    public void setLine(double x1, double y1, double x2, double y2) {
+        this.c1.setLocation(x1, y1);
+        this.c2.setLocation(x2, y2);
+    }
+
+    @Override
+    public Rectangle2D getBounds2D() {
+        return null; //TODO implement
+    }
 }

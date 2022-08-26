@@ -16,7 +16,7 @@ public class CursorIn2D implements Cursor<Double, Integer, CoordinateIn2D, Strai
 
     public CursorIn2D(CanvasIn2D canvas) {
         this.canvas = canvas;
-        this.currentPosition = new CoordinateIn2D(canvas.getBase() / 2, canvas.getHeight() / 2);
+        this.currentPosition = new CoordinateIn2D(canvas.getBase() / 2, canvas.getHeight() / 2, canvas);
         this.currentDirection = 0;
         this.color = Color.black;
         this.penSize = 1;
@@ -107,7 +107,7 @@ public class CursorIn2D implements Cursor<Double, Integer, CoordinateIn2D, Strai
 
     @Override
     public void home() {
-        this.currentPosition = new CoordinateIn2D(canvas.getBase() / 2, canvas.getHeight() / 2);
+        this.currentPosition = new CoordinateIn2D(canvas.getBase() / 2, canvas.getHeight() / 2, this.canvas);
     }
 
     @Override

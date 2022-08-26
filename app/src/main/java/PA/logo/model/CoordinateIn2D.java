@@ -1,55 +1,53 @@
 package pa.logo.model;
 
-public class CoordinateIn2D implements Coordinate {
+import pa.logo.LegalityChecker;
+
+import java.awt.geom.Point2D;
+
+public class CoordinateIn2D extends Point2D implements Coordinate {
 
     private double x;
     private double y;
+    private CanvasIn2D canvas;
 
-    /**
-     * Implements the coordinate in two dimensions.
-     *
-     * @param coordinate1 the x coordinate;
-     * @param coordinate2 the y coordinate;
-     */
-    public CoordinateIn2D(double coordinate1, double coordinate2) {
-        this.x = coordinate1;
-        this.y = coordinate2;
-    }
-
-    /**
-     * Gets the x value of the coordinate.
-     *
-     * @return the x value.
-     */
+    @Override
     public double getX() {
         return this.x;
     }
 
-    /**
-     * Gets the y value of the coordinate.
-     *
-     * @return the y value.
-     */
+    @Override
     public double getY() {
         return this.y;
     }
 
-    /**
-     * Sets the x value of the coordinate.
-     *
-     * @param x the x value.
-     */
-    public void setX(double x) {
+    @Override
+    public void setLocation(double x, double y) {
         this.x = x;
+        this.y = y;
+    }
+
+    public CanvasIn2D getCanvas() {
+        return canvas;
+    }
+
+    public void setCanvas(CanvasIn2D canvas) {
+        this.canvas = canvas;
     }
 
     /**
-     * Sets the y value of the coordinate.
+     * Implements the coordinate in two dimensions inside a canvas.
      *
-     * @param y the y value.
+     * @param coordinate1 the x coordinate;
+     * @param coordinate2 the y coordinate;
+     * @param canvas      the canvas where the coordinate is located;
      */
-    public void setY(double y) {
-        this.y = y;
+    public CoordinateIn2D(double coordinate1, double coordinate2, CanvasIn2D canvas) {
+        LegalityChecker check = new LegalityChecker();
+        if (check.coordinatesAreLegal(coordinate1, coordinate2, canvas)) {
+            this.canvas = canvas;
+            this.x = coordinate1;
+            this.y = coordinate2;
+        }
     }
 
     /**
