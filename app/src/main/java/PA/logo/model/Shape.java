@@ -1,22 +1,23 @@
 package pa.logo.model;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
  * A shape of any kind, color or form. Can be open or closed, can have any number of dimensions.
  *
- * @param <C> the coordinate(s).
+ * @param <P> the points containing the coordinates of the line. can be 2D, 3D or more.
  * @param <L> the line(s).
  */
-public interface Shape<C extends Coordinate, L extends Line<C>> {
-
-    /**
-     * Adds a line to the shape.
-     *
-     * @param lineToAdd the line to be added.
-     */
-    void addLineToShape(L lineToAdd);
+public interface Shape<P extends Point2D, L extends Line<P>> {
+//
+//    /**
+//     * Adds a line to the shape.
+//     *
+//     * @param lineToAdd the line to be added.
+//     */
+//    void addLineToShape(L lineToAdd);
 
     /**
      * Adds a number of lines to the shape.

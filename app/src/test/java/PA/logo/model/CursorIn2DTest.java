@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class CursorIn2DTest {
     @Test
     public void Test() {
+
         ArrayList<ShapeIn2D> shapes = new ArrayList<>();
         CanvasIn2D canvas = new CanvasIn2D(100, 100, shapes);
         CursorIn2D cursor = new CursorIn2D(canvas);
@@ -16,7 +17,7 @@ public class CursorIn2DTest {
         Assertions.assertTrue(cursor.getPenColor() == Color.black);
         cursor.setPenColor(Color.blue);
         Assertions.assertTrue(cursor.getPenColor() == Color.blue);
-        CoordinateIn2D mockHome = new CoordinateIn2D(50.0, 50.0);
+        LogoPointIn2D mockHome = new LogoPointIn2D(50.0, 50.0, canvas);
         Assertions.assertEquals(canvas.getHome().getX(), mockHome.getX());
         Assertions.assertEquals(canvas.getHome().getY(), mockHome.getY());
         Assertions.assertTrue(cursor.getCurrentDirection() == 0);

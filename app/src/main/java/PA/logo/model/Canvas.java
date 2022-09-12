@@ -1,12 +1,16 @@
 package pa.logo.model;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
  * Defines the canvas on which one draws.
+ * @param <P> the points containing the coordinates of the line(s). can be 2D, 3D or more.
+ * @param <L> the line(s).
+ * @param <S> the shape(s).
  */
-public interface Canvas<C extends Coordinate, L extends Line<C>, S extends Shape<C, L>> {
+public interface Canvas<P extends Point2D, L extends Line<P>, S extends Shape<P, L>> {
 
     /**
      * Gets all the shapes in the canvas.

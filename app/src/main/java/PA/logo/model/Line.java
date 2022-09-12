@@ -1,21 +1,22 @@
 package pa.logo.model;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
  * A line. Can be any length, shape or color.
  *
- * @param <C> the coordinate(s) of the shape.
+ * @param <P> the points containing the coordinates of the line. can be 2D, 3D or more.
  */
-public interface Line<C extends Coordinate> {
+public interface Line<P extends Point2D> {
 
     /**
      * Gets the coordinates of the line.
      *
      * @return an ArrayList with the coordinates.
      */
-    ArrayList<C> getCoordinates();
+    ArrayList<P> getPoints();
 
     /**
      * Gets the color of the line.

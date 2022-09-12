@@ -4,7 +4,10 @@ import pa.logo.LegalityChecker;
 
 import java.awt.geom.Point2D;
 
-public class CoordinateIn2D extends Point2D implements Coordinate {
+/**
+ * A point in a canvas with an x and y coordinate.
+ */
+public class LogoPointIn2D extends Point2D {
 
     private double x;
     private double y;
@@ -41,7 +44,7 @@ public class CoordinateIn2D extends Point2D implements Coordinate {
      * @param coordinate2 the y coordinate;
      * @param canvas      the canvas where the coordinate is located;
      */
-    public CoordinateIn2D(double coordinate1, double coordinate2, CanvasIn2D canvas) {
+    public LogoPointIn2D(double coordinate1, double coordinate2, CanvasIn2D canvas) {
         LegalityChecker check = new LegalityChecker();
         if (check.coordinatesAreLegal(coordinate1, coordinate2, canvas)) {
             this.canvas = canvas;

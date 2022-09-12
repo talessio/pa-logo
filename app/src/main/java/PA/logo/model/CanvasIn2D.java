@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Implements a canvas in two dimensions to draw upon.
  */
-public class CanvasIn2D implements Canvas<CoordinateIn2D, StraightLineIn2D, ShapeIn2D> {
+public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, ShapeIn2D> {
     private final double height;
     private final double base;
     private Color canvasColor = Color.white;
@@ -120,7 +120,7 @@ public class CanvasIn2D implements Canvas<CoordinateIn2D, StraightLineIn2D, Shap
      *
      * @return the coordinates for the home.
      */
-    public CoordinateIn2D getHome() {
-        return new CoordinateIn2D(base / 2, height / 2, this);
+    public LogoPointIn2D getHome() {
+        return new LogoPointIn2D(base / 2, height / 2, this);
     }
 }

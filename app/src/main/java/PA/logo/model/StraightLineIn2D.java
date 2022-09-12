@@ -2,26 +2,25 @@ package pa.logo.model;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
  * A straight line. If no color is given it is black by default.
  */
-public class StraightLineIn2D extends Line2D implements Line<CoordinateIn2D> {
+public class StraightLineIn2D extends Line2D implements Line<LogoPointIn2D> {
 
-    CoordinateIn2D c1;
-    CoordinateIn2D c2;
+    LogoPointIn2D c1;
+    LogoPointIn2D c2;
     Color color;
 
-    public StraightLineIn2D(CoordinateIn2D start, CoordinateIn2D end, Color color) {
+    public StraightLineIn2D(LogoPointIn2D start, LogoPointIn2D end, Color color) {
         this.c1 = start;
         this.c2 = end;
         this.color = color;
     }
 
-    public StraightLineIn2D(CoordinateIn2D start, CoordinateIn2D end) {
+    public StraightLineIn2D(LogoPointIn2D start, LogoPointIn2D end) {
         this.c1 = start;
         this.c2 = end;
         this.color = Color.black;
@@ -29,8 +28,8 @@ public class StraightLineIn2D extends Line2D implements Line<CoordinateIn2D> {
     }
 
     @Override
-    public ArrayList<CoordinateIn2D> getCoordinates() {
-        ArrayList<CoordinateIn2D> lineCoordinates = new ArrayList<>();
+    public ArrayList<LogoPointIn2D> getPoints() {
+        ArrayList<LogoPointIn2D> lineCoordinates = new ArrayList<>();
         lineCoordinates.add(this.c1);
         lineCoordinates.add(this.c2);
         return lineCoordinates;
@@ -52,7 +51,7 @@ public class StraightLineIn2D extends Line2D implements Line<CoordinateIn2D> {
     }
 
     @Override
-    public CoordinateIn2D getP1() {
+    public LogoPointIn2D getP1() {
         return this.c1;
     }
 
@@ -67,7 +66,7 @@ public class StraightLineIn2D extends Line2D implements Line<CoordinateIn2D> {
     }
 
     @Override
-    public CoordinateIn2D getP2() {
+    public LogoPointIn2D getP2() {
         return this.c2;
     }
 

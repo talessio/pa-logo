@@ -7,35 +7,38 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class StraightLineIn2DTest {
+
+    ArrayList<ShapeIn2D> shapesInCanvas = new ArrayList<>();
+    CanvasIn2D canvas = new CanvasIn2D(100.0, 100.0, Color.lightGray, shapesInCanvas);
     double x1 = 1.0;
     double y1 = 1.0;
-    CoordinateIn2D coordinate1 = new CoordinateIn2D(x1, y1);
+    LogoPointIn2D coordinate1 = new LogoPointIn2D(x1, y1, canvas);
     double x2 = 2.0;
     double y2 = 3.0;
-    CoordinateIn2D coordinate2 = new CoordinateIn2D(x2, y2);
+    LogoPointIn2D coordinate2 = new LogoPointIn2D(x2, y2, canvas);
     Color color1 = Color.black;
     StraightLineIn2D line1 = new StraightLineIn2D(coordinate1, coordinate2, color1);
     double x3 = 2.0;
     double y3 = 3.0;
-    CoordinateIn2D coordinate3 = new CoordinateIn2D(x3, y3);
+    LogoPointIn2D coordinate3 = new LogoPointIn2D(x3, y3, canvas);
     double x4 = 6.0;
     double y4 = 2.0;
-    CoordinateIn2D coordinate4 = new CoordinateIn2D(x4, y4);
+    LogoPointIn2D coordinate4 = new LogoPointIn2D(x4, y4, canvas);
     Color color2 = Color.yellow;
     StraightLineIn2D line2 = new StraightLineIn2D(coordinate3, coordinate4, color2);
     double x5 = 6.0;
     double y5 = 2.0;
-    CoordinateIn2D coordinate5 = new CoordinateIn2D(x5, y5);
+    LogoPointIn2D coordinate5 = new LogoPointIn2D(x5, y5, canvas);
     double x6 = 1.0;
     double y6 = 1.0;
-    CoordinateIn2D coordinate6 = new CoordinateIn2D(x6, y6);
+    LogoPointIn2D coordinate6 = new LogoPointIn2D(x6, y6, canvas);
     StraightLineIn2D line3 = new StraightLineIn2D(coordinate5, coordinate6);
     double x7 = 33.5;
     double y7 = 44.0;
-    CoordinateIn2D coordinate7 = new CoordinateIn2D(x7, y7);
+    LogoPointIn2D coordinate7 = new LogoPointIn2D(x7, y7, canvas);
     double x8 = 5.5;
     double y8 = 14.7;
-    CoordinateIn2D coordinate8 = new CoordinateIn2D(x8, y8);
+    LogoPointIn2D coordinate8 = new LogoPointIn2D(x8, y8, canvas);
     Color color3 = Color.green;
     StraightLineIn2D line4 = new StraightLineIn2D(coordinate7, coordinate8, color3);
     ArrayList<StraightLineIn2D> linesInShape1 = new ArrayList<>();
@@ -52,12 +55,12 @@ public class StraightLineIn2DTest {
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
         shape2.addLineToShape(line4);
 
-        Assertions.assertSame(line1.getCoordinates().get(0), coordinate1);
-        Assertions.assertSame(line1.getCoordinates().get(1), coordinate2);
-        Assertions.assertSame(line2.getCoordinates().get(0), coordinate3);
-        Assertions.assertSame(line2.getCoordinates().get(1), coordinate4);
-        Assertions.assertSame(line3.getCoordinates().get(0), coordinate5);
-        Assertions.assertSame(line3.getCoordinates().get(1), coordinate6);
+        Assertions.assertSame(line1.getPoints().get(0), coordinate1);
+        Assertions.assertSame(line1.getPoints().get(1), coordinate2);
+        Assertions.assertSame(line2.getPoints().get(0), coordinate3);
+        Assertions.assertSame(line2.getPoints().get(1), coordinate4);
+        Assertions.assertSame(line3.getPoints().get(0), coordinate5);
+        Assertions.assertSame(line3.getPoints().get(1), coordinate6);
     }
 
     @Test

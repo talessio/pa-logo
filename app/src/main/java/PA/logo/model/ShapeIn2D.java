@@ -4,17 +4,16 @@ import pa.logo.LegalityChecker;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * A shape in two dimensions. Can have a fill color, if none is given it's automatically white.
  * Can be open or closed.
  */
-public class ShapeIn2D implements Shape<CoordinateIn2D, StraightLineIn2D> {
+public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
 
     private Color fillColor;
-    private boolean closed = false;
+    private boolean closed;
+    private final CanvasIn2D canvas;
 
     /**
      * ArrayList of all lines in the shape. Can contain any number of connected lines.
@@ -29,18 +28,20 @@ public class ShapeIn2D implements Shape<CoordinateIn2D, StraightLineIn2D> {
         } else {
             throw new IllegalArgumentException("Open shapes cannot have fill color.");
         }
+        this.canvas = linesInShape.get(0).getP1().getCanvas();
     }
 
     public ShapeIn2D(ArrayList<StraightLineIn2D> linesInShape) {
         this.addLinesToShape(linesInShape);
+        this.canvas = linesInShape.get(0).getP1().getCanvas();
     }
 
-    @Override
-    public void addLineToShape(StraightLineIn2D line) {
-        ArrayList<StraightLineIn2D> lineToAdd = new ArrayList<>();
-        lineToAdd.add(line);
-        addLinesToShape(lineToAdd);
-    }
+//    @Override
+//    public void addLineToShape(StraightLineIn2D line) {
+//        ArrayList<StraightLineIn2D> lineToAdd = new ArrayList<>();
+//        lineToAdd.add(line);
+//        addLinesToShape(lineToAdd);
+//    }
 
     @Override
     public void addLinesToShape(ArrayList<StraightLineIn2D> linesToAdd) throws IllegalArgumentException {

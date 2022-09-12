@@ -5,10 +5,10 @@ import java.awt.*;
 /**
  * Implements the cursor for a 2D canvas.
  */
-public class CursorIn2D implements Cursor<Double, Integer, CoordinateIn2D, StraightLineIn2D, ShapeIn2D, CanvasIn2D> {
+public class CursorIn2D implements Cursor<Double, Integer, LogoPointIn2D, StraightLineIn2D, ShapeIn2D, CanvasIn2D> {
 
-    private CanvasIn2D canvas;
-    private CoordinateIn2D currentPosition;
+    private final CanvasIn2D canvas;
+    private LogoPointIn2D currentPosition;
     private int currentDirection;
     private Color color;
     private int penSize;
@@ -16,7 +16,7 @@ public class CursorIn2D implements Cursor<Double, Integer, CoordinateIn2D, Strai
 
     public CursorIn2D(CanvasIn2D canvas) {
         this.canvas = canvas;
-        this.currentPosition = new CoordinateIn2D(canvas.getBase() / 2, canvas.getHeight() / 2, canvas);
+        this.currentPosition = new LogoPointIn2D(canvas.getBase() / 2, canvas.getHeight() / 2, canvas);
         this.currentDirection = 0;
         this.color = Color.black;
         this.penSize = 1;
@@ -28,7 +28,7 @@ public class CursorIn2D implements Cursor<Double, Integer, CoordinateIn2D, Strai
      *
      * @return the current position.
      */
-    public CoordinateIn2D getCurrentPosition() {
+    public LogoPointIn2D getCurrentPosition() {
         return currentPosition;
     }
 
@@ -52,7 +52,7 @@ public class CursorIn2D implements Cursor<Double, Integer, CoordinateIn2D, Strai
 
     @Override
     public void forward(Double distance) {
-        CoordinateIn2D newPosition = this.currentPosition;
+        LogoPointIn2D newPosition = this.currentPosition;
         if ((this.currentDirection >= 0 && this.currentDirection < 90) || (this.currentDirection <= 360 && this.currentDirection > 270)) {
             newPosition.increaseXBy(distance);
         }
@@ -70,7 +70,7 @@ public class CursorIn2D implements Cursor<Double, Integer, CoordinateIn2D, Strai
 
     @Override
     public void backward(Double distance) {
-        CoordinateIn2D newPosition = this.currentPosition;
+        LogoPointIn2D newPosition = this.currentPosition;
         if ((this.currentDirection >= 0 && this.currentDirection < 90) || (this.currentDirection <= 360 && this.currentDirection > 270)) {
             newPosition.decreaseXBy(distance);
         }
@@ -107,7 +107,7 @@ public class CursorIn2D implements Cursor<Double, Integer, CoordinateIn2D, Strai
 
     @Override
     public void home() {
-        this.currentPosition = new CoordinateIn2D(canvas.getBase() / 2, canvas.getHeight() / 2, this.canvas);
+        this.currentPosition = new LogoPointIn2D(canvas.getBase() / 2, canvas.getHeight() / 2, this.canvas);
     }
 
     @Override
@@ -154,16 +154,20 @@ public class CursorIn2D implements Cursor<Double, Integer, CoordinateIn2D, Strai
      * @param position the potential position.
      * @return the correct position.
      */
-    private CoordinateIn2D checkAgainstCanvasSize(CoordinateIn2D position) {
+    private LogoPointIn2D checkAgainstCanvasSize(LogoPointIn2D position) {
         if (position.getX() > canvas.getBase()) {
-            position.setX(canvas.getBase());
+//            position.setX(canvas.getBase());
+            position.setLocation(canvas.getBase(), position.getY());
         } else if (position.getX() < 0) {
-            position.setX(0.0);
+//            position.setX(0.0);
+            position.setLocation(0.0, position.getY());
         }
         if (position.getY() > canvas.getHeight()) {
-            position.setY(canvas.getHeight());
+//            position.setY(canvas.getHeight());
+            position.setLocation(position.getX(), canvas.getHeight());
         } else if (position.getY() < 0) {
-            position.setY(0.0);
+//            position.setY(0.0);
+            position.setLocation(position.getX(), 0.0);
         }
         return position;
     }

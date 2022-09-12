@@ -52,8 +52,8 @@ public class LegalityChecker {
      * @return true if the shape needs to be set closed, false otherwise.
      */
     public boolean needsToClose(ArrayList<StraightLineIn2D> lines) {
-        ArrayList<CoordinateIn2D> coordinates = getAllCoordinates(lines);
-        HashMap<CoordinateIn2D, Integer> occurrences = generateNumberOfOccurrences(coordinates);
+        ArrayList<LogoPointIn2D> coordinates = getAllCoordinates(lines);
+        HashMap<LogoPointIn2D, Integer> occurrences = generateNumberOfOccurrences(coordinates);
         int ends = getNumberOfEndsOfShape(occurrences);
         return ends == 0;
     }
@@ -69,9 +69,9 @@ public class LegalityChecker {
      */
     private boolean hasIllegalNumberOfEnds(ArrayList<StraightLineIn2D> lines) {
         //get all the coordinates from all the lines inside the shape
-        ArrayList<CoordinateIn2D> coordinates = getAllCoordinates(lines);
+        ArrayList<LogoPointIn2D> coordinates = getAllCoordinates(lines);
         //check how many times each coordinate appears and save it into a hashmap
-        HashMap<CoordinateIn2D, Integer> occurrences = generateNumberOfOccurrences(coordinates);
+        HashMap<LogoPointIn2D, Integer> occurrences = generateNumberOfOccurrences(coordinates);
         //check how many ends the shape has by counting the number of ends in the shape
         int ends = getNumberOfEndsOfShape(occurrences);
         if (ends > 2 || ends == 1) {
@@ -91,10 +91,10 @@ public class LegalityChecker {
      * @param lines the lines in the shape.
      * @return an ArrayList with all the coordinates from all the lines inside the shape.
      */
-    private ArrayList<CoordinateIn2D> getAllCoordinates(ArrayList<StraightLineIn2D> lines) {
-        ArrayList<CoordinateIn2D> coordinates = new ArrayList<>();
+    private ArrayList<LogoPointIn2D> getAllCoordinates(ArrayList<StraightLineIn2D> lines) {
+        ArrayList<LogoPointIn2D> coordinates = new ArrayList<>();
         for (StraightLineIn2D line : lines) {
-            coordinates.addAll(line.getCoordinates());
+            coordinates.addAll(line.getPoints());
         }
         return coordinates;
     }
@@ -105,9 +105,9 @@ public class LegalityChecker {
      * @param coordinates the ArrayList containing all coordinates.
      * @return a HashMap with each coordinate and how many times it occurs.
      */
-    private HashMap<CoordinateIn2D, Integer> generateNumberOfOccurrences(ArrayList<CoordinateIn2D> coordinates) {
-        HashMap<CoordinateIn2D, Integer> coordinatesWithOccurrence = new HashMap<>();
-        for (CoordinateIn2D coordinate : coordinates) {
+    private HashMap<LogoPointIn2D, Integer> generateNumberOfOccurrences(ArrayList<LogoPointIn2D> coordinates) {
+        HashMap<LogoPointIn2D, Integer> coordinatesWithOccurrence = new HashMap<>();
+        for (LogoPointIn2D coordinate : coordinates) {
             if (coordinatesWithOccurrence.containsKey(coordinate)) {
                 int newValue = coordinatesWithOccurrence.get(coordinate) + 1;
                 //I update the value
@@ -126,7 +126,7 @@ public class LegalityChecker {
      * @param studiedCoordinates the coordinates with their respective number of appearences in allCoordinates.
      * @return how many ends of shape are found.
      */
-    private int getNumberOfEndsOfShape(HashMap<CoordinateIn2D, Integer> studiedCoordinates) {
+    private int getNumberOfEndsOfShape(HashMap<LogoPointIn2D, Integer> studiedCoordinates) {
         int numberOfEndsOfShape = 0;
         for (Integer value : studiedCoordinates.values()) {
             if (value == 1) {

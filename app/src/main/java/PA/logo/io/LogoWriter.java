@@ -2,13 +2,12 @@ package pa.logo.io;
 
 import pa.logo.model.Shape;
 import pa.logo.model.Line;
-import pa.logo.model.Coordinate;
-import pa.logo.model.Shape;
 
+import java.awt.geom.Point2D;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-public interface LogoWriter<C extends Coordinate, L extends Line<C>, S extends Shape<C, L>> {
+public interface LogoWriter<P extends Point2D, L extends Line<P>, S extends Shape<P, L>> {
 
     /**
      * Writes down the output of a logo execution.

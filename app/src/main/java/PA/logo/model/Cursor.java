@@ -1,11 +1,19 @@
 package pa.logo.model;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 /**
  * Defines the cursor.
+ *
+ * @param <T> the value that makes up the canvas.
+ * @param <K> the value that makes up the angle.
+ * @param <P> the points containing the coordinates of the lines. can be 2D, 3D or more.
+ * @param <L> the lines.
+ * @param <S> the shapes.
+ * @param <X> the canvas.
  */
-public interface Cursor<T extends Number, K extends Number, C extends Coordinate, L extends Line<C>, S extends Shape<C, L>, X extends Canvas<C, L, S>> {
+public interface Cursor<T extends Number, K extends Number, P extends Point2D, L extends Line<P>, S extends Shape<P, L>, X extends Canvas<P, L, S>> {
 
     /**
      * Moves the cursor forwards in the direction it faces.
