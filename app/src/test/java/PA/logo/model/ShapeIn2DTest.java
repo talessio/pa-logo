@@ -47,22 +47,28 @@ public class ShapeIn2DTest {
     @Test
     public void addLine() {
         Assertions.assertFalse(shape1.isClosed()); //TODO: everything is always closed?
-        this.shape1.addLineToShape(line1);
+        ArrayList<StraightLineIn2D> line = new ArrayList<>();
+        line.add(line1);
+        this.shape1.addLinesToShape(line);
         Assertions.assertTrue(shape1.getShapeLines().contains(line1));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> shape1.addLineToShape(line1));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> shape1.addLinesToShape(line));
         Assertions.assertFalse(shape1.isClosed());
-//        ArrayList<StraightLineIn2D> otherLines = new ArrayList<>();
-//        otherLines.add(line2);
-//        otherLines.add(line3);
-//        this.shape1.addLinesToShape(otherLines);
-        this.shape1.addLineToShape(line2); //TODO: adding single lines works, adding multiple lines doesnt. i must have gotten some iteration wrong in legalitychecker.
-        this.shape1.addLineToShape(line3);
+        ArrayList<StraightLineIn2D> otherLines = new ArrayList<>();
+        otherLines.add(line2);
+        otherLines.add(line3);
+        this.shape1.addLinesToShape(otherLines);
+//        this.shape1.addLinesToShape(line2); //TODO: adding single lines works, adding multiple lines doesnt. i must have gotten some iteration wrong in legalitychecker.
+//        this.shape1.addLineToShape(line3);
         Assertions.assertTrue(shape1.isClosed());
         Assertions.assertFalse(shape2.isClosed());
-        this.shape2.addLineToShape(line4);
+        ArrayList<StraightLineIn2D> oneMoreLine = new ArrayList<>();
+        oneMoreLine.add(line4);
+        this.shape2.addLinesToShape(oneMoreLine);
         Assertions.assertFalse(shape2.isClosed());
-        Assertions.assertThrows(NullPointerException.class, () -> shape1.addLineToShape(null));
-        Assertions.assertThrows(NullPointerException.class, () -> shape2.addLineToShape(null));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> shape2.addLineToShape(line1)); //TODO: lines must connect to at least one end of the shape e.g. if(shape.getEnds = at least one coordinate of new line) linesInShape.add(line) else throw exception
+        Assertions.assertThrows(NullPointerException.class, () -> shape1.addLinesToShape(null));
+        Assertions.assertThrows(NullPointerException.class, () -> shape2.addLinesToShape(null));
+        ArrayList<StraightLineIn2D> disconnectedLine = new ArrayList<>();
+        disconnectedLine.add(line1);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> shape2.addLinesToShape(disconnectedLine)); //TODO: lines must connect to at least one end of the shape e.g. if(shape.getEnds = at least one coordinate of new line) linesInShape.add(line) else throw exception
     }
 }

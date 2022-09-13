@@ -53,10 +53,14 @@ public class CanvasIn2DTest {
 
     @Test
     public void Test() {
-        this.shape1.addLineToShape(line1);
-        this.shape1.addLineToShape(line2);
-        this.shape2.addLineToShape(line4);
-        this.shape2.addLineToShape(line5);
+        ArrayList<StraightLineIn2D> linesForShape1 = new ArrayList<>();
+        ArrayList<StraightLineIn2D> linesForShape2 = new ArrayList<>();
+        linesForShape1.add(line1);
+        linesForShape1.add(line2);
+        linesForShape2.add(line4);
+        linesForShape2.add(line5);
+        this.shape1.addLinesToShape(linesForShape1);
+        this.shape2.addLinesToShape(linesForShape2);
         canvas.addShapeToCanvas(shape1);
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape1));
         Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape2));

@@ -4,6 +4,7 @@ import pa.logo.LegalityChecker;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A shape in two dimensions. Can have a fill color, if none is given it's automatically white.
@@ -93,4 +94,16 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
         this.closed = true;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ShapeIn2D shapeIn2D = (ShapeIn2D) o;
+        return closed == shapeIn2D.closed && Objects.equals(fillColor, shapeIn2D.fillColor) && canvas.equals(shapeIn2D.canvas) && lines.equals(shapeIn2D.lines);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fillColor, closed, canvas, lines);
+    }
 }

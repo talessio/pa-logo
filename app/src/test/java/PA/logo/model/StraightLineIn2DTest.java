@@ -46,14 +46,17 @@ public class StraightLineIn2DTest {
 
     @Test
     public void getCoordinatesTest() {
-        ShapeIn2D shape1;
-        shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
-        shape1.addLineToShape(line1);
-        shape1.addLineToShape(line2);
-        shape1.addLineToShape(line3);
+        ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
+        ArrayList<StraightLineIn2D> linesForShape1 = new ArrayList<>();
+        linesForShape1.add(line1);
+        linesForShape1.add(line2);
+        linesForShape1.add(line3);
+        shape1.addLinesToShape(linesForShape1);
         shape1.setClosed();
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
-        shape2.addLineToShape(line4);
+        ArrayList<StraightLineIn2D> lineForShape2 = new ArrayList<>();
+        lineForShape2.add(line4);
+        shape2.addLinesToShape(lineForShape2);
 
         Assertions.assertSame(line1.getPoints().get(0), coordinate1);
         Assertions.assertSame(line1.getPoints().get(1), coordinate2);
@@ -66,12 +69,16 @@ public class StraightLineIn2DTest {
     @Test
     public void getLineColorTest() {
         ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
-        shape1.addLineToShape(line1);
-        shape1.addLineToShape(line2);
-        shape1.addLineToShape(line3);
+        ArrayList<StraightLineIn2D> linesToAdd = new ArrayList<>();
+        linesToAdd.add(line1);
+        linesToAdd.add(line2);
+        linesToAdd.add(line3);
+        shape1.addLinesToShape(linesToAdd);
         shape1.setClosed();
         ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
-        shape2.addLineToShape(line4);
+        ArrayList<StraightLineIn2D> lineToAdd = new ArrayList<>();
+        lineToAdd.add(line4);
+        shape2.addLinesToShape(lineToAdd);
 
         Assertions.assertSame(line1.getLineColor(), Color.black);
         Assertions.assertSame(line2.getLineColor(), Color.yellow);

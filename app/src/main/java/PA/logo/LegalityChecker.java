@@ -46,7 +46,7 @@ public class LegalityChecker {
     }
 
     /**
-     * Checks if needs to be closed.
+     * Checks if shape needs to be closed.
      *
      * @param lines the lines.
      * @return true if the shape needs to be set closed, false otherwise.
