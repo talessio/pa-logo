@@ -3,6 +3,7 @@ package pa.logo.model;
 import pa.logo.LegalityChecker;
 
 import java.awt.geom.Point2D;
+import java.util.Objects;
 
 /**
  * A point in a canvas with an x and y coordinate.
@@ -29,10 +30,20 @@ public class LogoPointIn2D extends Point2D {
         this.y = y;
     }
 
+    /**
+     * Get the canvas where the point is placed.
+     *
+     * @return the canvas
+     */
     public CanvasIn2D getCanvas() {
         return canvas;
     }
 
+    /**
+     * Set the canvas where the point is placed.
+     *
+     * @param canvas the canvas
+     */
     public void setCanvas(CanvasIn2D canvas) {
         this.canvas = canvas;
     }
@@ -65,7 +76,7 @@ public class LogoPointIn2D extends Point2D {
     /**
      * Increases the y value by the specified amount.
      *
-     * @param value the amount.
+     * @param value the amount
      */
     public void increaseYBy(double value) {
         this.y += value;
@@ -87,5 +98,19 @@ public class LogoPointIn2D extends Point2D {
      */
     public void decreaseYBy(double value) {
         this.y -= value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        LogoPointIn2D that = (LogoPointIn2D) o;
+        return java.lang.Double.compare(that.x, x) == 0 && java.lang.Double.compare(that.y, y) == 0 && canvas.equals(that.canvas);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), x, y, canvas);
     }
 }
