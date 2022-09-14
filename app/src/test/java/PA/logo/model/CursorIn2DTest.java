@@ -2,15 +2,14 @@ package pa.logo.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 public class CursorIn2DTest {
     @Test
     public void Test() {
 
-        ArrayList<ShapeIn2D> shapes = new ArrayList<>();
+        LinkedHashSet<ShapeIn2D> shapes = new LinkedHashSet<>();
         CanvasIn2D canvas = new CanvasIn2D(100, 100, shapes);
         CursorIn2D cursor = new CursorIn2D(canvas);
 

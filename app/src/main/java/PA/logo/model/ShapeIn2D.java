@@ -4,6 +4,7 @@ import pa.logo.LegalityChecker;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 
 /**
@@ -19,35 +20,28 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
     /**
      * ArrayList of all lines in the shape. Can contain any number of connected lines.
      */
-    private ArrayList<StraightLineIn2D> lines = new ArrayList<>();
+    private LinkedHashSet<StraightLineIn2D> lines = new LinkedHashSet<>();
 
 
-    public ShapeIn2D(ArrayList<StraightLineIn2D> linesInShape, Color color) {
+    public ShapeIn2D(LinkedHashSet<StraightLineIn2D> linesInShape, Color color) {
         this.addLinesToShape(linesInShape);
         if (this.closed) {
             this.fillColor = color;
         } else {
             throw new IllegalArgumentException("Open shapes cannot have fill color.");
         }
-        this.canvas = linesInShape.get(0).getP1().getCanvas();
+        this.canvas = linesInShape.stream().findFirst().get().getP1().getCanvas();
     }
 
-    public ShapeIn2D(ArrayList<StraightLineIn2D> linesInShape) {
+    public ShapeIn2D(LinkedHashSet<StraightLineIn2D> linesInShape) {
         this.addLinesToShape(linesInShape);
-        this.canvas = linesInShape.get(0).getP1().getCanvas();
+        this.canvas = linesInShape.stream().findFirst().get().getP1().getCanvas();
     }
-
-//    @Override
-//    public void addLineToShape(StraightLineIn2D line) {
-//        ArrayList<StraightLineIn2D> lineToAdd = new ArrayList<>();
-//        lineToAdd.add(line);
-//        addLinesToShape(lineToAdd);
-//    }
 
     @Override
-    public void addLinesToShape(ArrayList<StraightLineIn2D> linesToAdd) throws IllegalArgumentException {
+    public void addLinesToShape(LinkedHashSet<StraightLineIn2D> linesToAdd) throws IllegalArgumentException {
         LegalityChecker checker = new LegalityChecker();
-        ArrayList<StraightLineIn2D> allLines = new ArrayList<>();
+        LinkedHashSet<StraightLineIn2D> allLines = new LinkedHashSet<>();
         for (StraightLineIn2D line : linesToAdd) {
             checker.lineIsLegal(line, this);
             allLines.add(line);
@@ -69,7 +63,7 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
     }
 
     @Override
-    public ArrayList<StraightLineIn2D> getShapeLines() {
+    public LinkedHashSet<StraightLineIn2D> getShapeLines() {
         return this.lines;
     }
 

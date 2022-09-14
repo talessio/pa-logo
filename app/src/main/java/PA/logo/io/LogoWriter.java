@@ -5,7 +5,7 @@ import pa.logo.model.Line;
 
 import java.awt.geom.Point2D;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 public interface LogoWriter<P extends Point2D, L extends Line<P>, S extends Shape<P, L>> {
 
@@ -15,5 +15,5 @@ public interface LogoWriter<P extends Point2D, L extends Line<P>, S extends Shap
      * @param path   The path to save the output.
      * @param shapes All the shapes to convert into the desired output.
      */
-    void write(Path path, ArrayList<S> shapes);
+    void write(Path path, LinkedHashSet<S> shapes);
 }

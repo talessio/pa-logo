@@ -31,12 +31,12 @@ public class LogoPointIn2D extends Point2D {
     }
 
     /**
-     * Get the canvas where the point is placed.
+     * Returns the canvas where the point is placed.
      *
      * @return the canvas
      */
     public CanvasIn2D getCanvas() {
-        return canvas;
+        return this.canvas;
     }
 
     /**

@@ -3,7 +3,7 @@ package pa.logo.model;
 import pa.logo.LegalityChecker;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 /**
  * Implements a canvas in two dimensions to draw upon.
@@ -16,9 +16,9 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
     /**
      * Array List of all the shapes that are on the canvas.
      */
-    ArrayList<ShapeIn2D> allShapesInCanvas = new ArrayList<>();
+    LinkedHashSet<ShapeIn2D> allShapesInCanvas = new LinkedHashSet<>();
 
-    public CanvasIn2D(double height, double base, ArrayList<ShapeIn2D> shapes) {
+    public CanvasIn2D(double height, double base, LinkedHashSet<ShapeIn2D> shapes) {
         if (height == 0.0 || base == 0.0)
             throw new IllegalArgumentException("Height or base have to be bigger than 0.0");
         this.height = height;
@@ -26,7 +26,7 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
         this.allShapesInCanvas = shapes;
     }
 
-    public CanvasIn2D(double height, double base, Color canvasColor, ArrayList<ShapeIn2D> shapes) {
+    public CanvasIn2D(double height, double base, Color canvasColor, LinkedHashSet<ShapeIn2D> shapes) {
         if (height == 0.0 || base == 0.0)
             throw new IllegalArgumentException("Height or base have to be bigger than 0.0");
         this.height = height;
@@ -100,7 +100,7 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
     }
 
     @Override
-    public ArrayList<ShapeIn2D> getAllShapesInCanvas() {
+    public LinkedHashSet<ShapeIn2D> getAllShapesInCanvas() {
         return allShapesInCanvas;
     }
 

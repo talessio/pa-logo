@@ -2,7 +2,7 @@ package pa.logo.model;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 /**
  * A shape of any kind, color or form. Can be open or closed, can have any number of dimensions.
@@ -24,14 +24,14 @@ public interface Shape<P extends Point2D, L extends Line<P>> {
      *
      * @param linesToAdd the lines to be added.
      */
-    void addLinesToShape(ArrayList<L> linesToAdd);
+    void addLinesToShape(LinkedHashSet<L> linesToAdd);
 
     /**
      * Get the lines contained in the shape.
      *
      * @return an ArrayList with all the lines in the shape.
      */
-    ArrayList<L> getShapeLines();
+    LinkedHashSet<L> getShapeLines();
 
     /**
      * Get the color of the shape.

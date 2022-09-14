@@ -2,16 +2,15 @@ package pa.logo.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 public class CanvasIn2DTest {
 
-    ArrayList<ShapeIn2D> shapesInCanvas = new ArrayList<>();
+    LinkedHashSet<ShapeIn2D> shapesInCanvas = new LinkedHashSet<>();
     CanvasIn2D canvas = new CanvasIn2D(100.0, 100.0, Color.lightGray, shapesInCanvas);
-    ArrayList<StraightLineIn2D> linesInShape1 = new ArrayList<>();
-    ArrayList<StraightLineIn2D> linesInShape2 = new ArrayList<>();
+    LinkedHashSet<StraightLineIn2D> linesInShape1 = new LinkedHashSet<>();
+    LinkedHashSet<StraightLineIn2D> linesInShape2 = new LinkedHashSet<>();
     double x1 = 1.0;
     double y1 = 1.0;
     LogoPointIn2D coordinate1 = new LogoPointIn2D(x1, y1, canvas);
@@ -53,8 +52,8 @@ public class CanvasIn2DTest {
 
     @Test
     public void Test() {
-        ArrayList<StraightLineIn2D> linesForShape1 = new ArrayList<>();
-        ArrayList<StraightLineIn2D> linesForShape2 = new ArrayList<>();
+        LinkedHashSet<StraightLineIn2D> linesForShape1 = new LinkedHashSet<>();
+        LinkedHashSet<StraightLineIn2D> linesForShape2 = new LinkedHashSet<>();
         linesForShape1.add(line1);
         linesForShape1.add(line2);
         linesForShape2.add(line4);

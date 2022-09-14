@@ -3,7 +3,7 @@ package pa.logo.model;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 
 /**
@@ -29,8 +29,8 @@ public class StraightLineIn2D extends Line2D implements Line<LogoPointIn2D> {
     }
 
     @Override
-    public ArrayList<LogoPointIn2D> getPoints() {
-        ArrayList<LogoPointIn2D> lineCoordinates = new ArrayList<>();
+    public LinkedHashSet<LogoPointIn2D> getPoints() {
+        LinkedHashSet<LogoPointIn2D> lineCoordinates = new LinkedHashSet<>();
         lineCoordinates.add(this.c1);
         lineCoordinates.add(this.c2);
         return lineCoordinates;

@@ -1,9 +1,8 @@
 package pa.logo;
 
 import pa.logo.model.*;
-
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 
 public class LegalityChecker {
 
@@ -36,26 +35,29 @@ public class LegalityChecker {
     }
 
     /**
+     * Checks the line is duplicate inside the shape.
+     *
+     * @param line  the line.
+     * @param shape the shape.
+     * @return true if the line is a duplicate, false otherwise.
+     */
+    private boolean isDuplicate(StraightLineIn2D line, ShapeIn2D shape) {
+        for (StraightLineIn2D oldLine : shape.getShapeLines()) {
+            if (line.equals(oldLine)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks that the shape doesn't violate any rules.
      *
      * @param lines the lines from the shape.
      * @return true if the shape is legal, false otherwise.
      */
-    public boolean shapeIsLegal(ArrayList<StraightLineIn2D> lines) {
+    public boolean shapeIsLegal(LinkedHashSet<StraightLineIn2D> lines) {
         return !hasIllegalNumberOfEnds(lines);
-    }
-
-    /**
-     * Checks if shape needs to be closed.
-     *
-     * @param lines the lines.
-     * @return true if the shape needs to be set closed, false otherwise.
-     */
-    public boolean needsToClose(ArrayList<StraightLineIn2D> lines) {
-        ArrayList<LogoPointIn2D> coordinates = getAllCoordinates(lines);
-        HashMap<LogoPointIn2D, Integer> occurrences = generateNumberOfOccurrences(coordinates);
-        int ends = getNumberOfEndsOfShape(occurrences);
-        return ends == 0;
     }
 
     /**
@@ -67,9 +69,9 @@ public class LegalityChecker {
      * @param lines the lines from the shape.
      * @return true if the shape has an illegal number of ends, false otherwise.
      */
-    private boolean hasIllegalNumberOfEnds(ArrayList<StraightLineIn2D> lines) {
+    private boolean hasIllegalNumberOfEnds(LinkedHashSet<StraightLineIn2D> lines) {
         //get all the coordinates from all the lines inside the shape
-        ArrayList<LogoPointIn2D> coordinates = getAllCoordinates(lines);
+        LinkedHashSet<LogoPointIn2D> coordinates = getAllCoordinates(lines);
         //check how many times each coordinate appears and save it into a hashmap
         HashMap<LogoPointIn2D, Integer> occurrences = generateNumberOfOccurrences(coordinates);
         //check how many ends the shape has by counting the number of ends in the shape
@@ -91,8 +93,8 @@ public class LegalityChecker {
      * @param lines the lines in the shape.
      * @return an ArrayList with all the coordinates from all the lines inside the shape.
      */
-    private ArrayList<LogoPointIn2D> getAllCoordinates(ArrayList<StraightLineIn2D> lines) {
-        ArrayList<LogoPointIn2D> coordinates = new ArrayList<>();
+    private LinkedHashSet<LogoPointIn2D> getAllCoordinates(LinkedHashSet<StraightLineIn2D> lines) {
+        LinkedHashSet<LogoPointIn2D> coordinates = new LinkedHashSet<>();
         for (StraightLineIn2D line : lines) {
             coordinates.addAll(line.getPoints());
         }
@@ -105,7 +107,7 @@ public class LegalityChecker {
      * @param coordinates the ArrayList containing all coordinates.
      * @return a HashMap with each coordinate and how many times it occurs.
      */
-    private HashMap<LogoPointIn2D, Integer> generateNumberOfOccurrences(ArrayList<LogoPointIn2D> coordinates) {
+    private HashMap<LogoPointIn2D, Integer> generateNumberOfOccurrences(LinkedHashSet<LogoPointIn2D> coordinates) {
         HashMap<LogoPointIn2D, Integer> coordinatesWithOccurrence = new HashMap<>();
         for (LogoPointIn2D coordinate : coordinates) {
             if (coordinatesWithOccurrence.containsKey(coordinate)) {
@@ -137,18 +139,15 @@ public class LegalityChecker {
     }
 
     /**
-     * Checks the line is duplicate inside the shape.
+     * Checks if shape needs to be closed.
      *
-     * @param line  the line.
-     * @param shape the shape.
-     * @return true if the line is a duplicate, false otherwise.
+     * @param lines the lines.
+     * @return true if the shape needs to be set closed, false otherwise.
      */
-    private boolean isDuplicate(StraightLineIn2D line, ShapeIn2D shape) {
-        for (StraightLineIn2D oldLine : shape.getShapeLines()) {
-            if (line.equals(oldLine)) {
-                return true;
-            }
-        }
-        return false;
+    public boolean needsToClose(LinkedHashSet<StraightLineIn2D> lines) {
+        LinkedHashSet<LogoPointIn2D> coordinates = getAllCoordinates(lines);
+        HashMap<LogoPointIn2D, Integer> occurrences = generateNumberOfOccurrences(coordinates);
+        int ends = getNumberOfEndsOfShape(occurrences);
+        return ends == 0;
     }
 }
