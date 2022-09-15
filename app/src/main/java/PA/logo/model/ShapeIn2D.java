@@ -15,7 +15,7 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
 
     private Color fillColor;
     private boolean closed;
-    private final CanvasIn2D canvas;
+    private CanvasIn2D canvas;
 
     /**
      * ArrayList of all lines in the shape. Can contain any number of connected lines.
@@ -30,12 +30,21 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
         } else {
             throw new IllegalArgumentException("Open shapes cannot have fill color.");
         }
-        this.canvas = linesInShape.stream().findFirst().get().getP1().getCanvas();
+        for (StraightLineIn2D l : linesInShape) {
+            this.canvas = l.getCanvas();
+            this.canvas.addShapeToCanvas(this);
+            break;
+        }
     }
 
     public ShapeIn2D(LinkedHashSet<StraightLineIn2D> linesInShape) {
         this.addLinesToShape(linesInShape);
-        this.canvas = linesInShape.stream().findFirst().get().getP1().getCanvas();
+//        this.canvas = linesInShape.stream().findFirst().get().getCanvas();
+        for (StraightLineIn2D l : linesInShape) {
+            this.canvas = l.getCanvas();
+            this.canvas.addShapeToCanvas(this);
+            break;
+        }
     }
 
     @Override
@@ -57,9 +66,9 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
         } else {
             throw new IllegalArgumentException("Cannot add lines to the shape.");
         }
-        if (checker.needsToClose(allLines)) {
-            this.closed = true;
-        }
+//        if (checker.needsToClose(allLines)) {
+//            this.closed = true;
+//        }
     }
 
     @Override

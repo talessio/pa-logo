@@ -15,17 +15,25 @@ public class StraightLineIn2D extends Line2D implements Line<LogoPointIn2D> {
     LogoPointIn2D c2;
     Color color;
 
+
+    private CanvasIn2D canvas;
+
     public StraightLineIn2D(LogoPointIn2D start, LogoPointIn2D end, Color color) {
         this.c1 = start;
         this.c2 = end;
         this.color = color;
+        this.canvas = c1.getCanvas();
     }
 
     public StraightLineIn2D(LogoPointIn2D start, LogoPointIn2D end) {
         this.c1 = start;
         this.c2 = end;
         this.color = Color.black;
+        this.canvas = c1.getCanvas();
+    }
 
+    public CanvasIn2D getCanvas() {
+        return this.canvas;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package pa.logo;
 
 import pa.logo.model.*;
+
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 
@@ -31,24 +32,24 @@ public class LegalityChecker {
     public void lineIsLegal(StraightLineIn2D line, ShapeIn2D shape) throws NullPointerException, IllegalArgumentException {
         if (shape.isClosed()) throw new IllegalArgumentException("Shape is closed to new lines.");
         if (line == null) throw new NullPointerException("Line cannot be null.");
-        if (isDuplicate(line, shape)) throw new IllegalArgumentException("Cannot have duplicate lines.");
+//        if (isDuplicate(line, shape)) throw new IllegalArgumentException("Cannot have duplicate lines.");
     }
-
-    /**
-     * Checks the line is duplicate inside the shape.
-     *
-     * @param line  the line.
-     * @param shape the shape.
-     * @return true if the line is a duplicate, false otherwise.
-     */
-    private boolean isDuplicate(StraightLineIn2D line, ShapeIn2D shape) {
-        for (StraightLineIn2D oldLine : shape.getShapeLines()) {
-            if (line.equals(oldLine)) {
-                return true;
-            }
-        }
-        return false;
-    }
+//
+//    /**
+//     * Checks the line is duplicate inside the shape.
+//     *
+//     * @param line  the line.
+//     * @param shape the shape.
+//     * @return true if the line is a duplicate, false otherwise.
+//     */
+//    private boolean isDuplicate(StraightLineIn2D line, ShapeIn2D shape) {
+//        for (StraightLineIn2D oldLine : shape.getShapeLines()) {
+//            if (line.equals(oldLine)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     /**
      * Checks that the shape doesn't violate any rules.
@@ -148,6 +149,6 @@ public class LegalityChecker {
         LinkedHashSet<LogoPointIn2D> coordinates = getAllCoordinates(lines);
         HashMap<LogoPointIn2D, Integer> occurrences = generateNumberOfOccurrences(coordinates);
         int ends = getNumberOfEndsOfShape(occurrences);
-        return ends == 0;
+        return (ends == 0);
     }
 }
