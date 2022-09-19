@@ -3,7 +3,6 @@ package pa.logo.model;
 import pa.logo.LegalityChecker;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 
@@ -14,7 +13,8 @@ import java.util.Objects;
 public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
 
     private Color fillColor;
-    private boolean closed;
+    private boolean closed = false;
+    //    private boolean needsToClose;
     private CanvasIn2D canvas;
 
     /**
@@ -46,6 +46,10 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
             break;
         }
     }
+//
+//    public void setNeedsToClose(boolean b) {
+//        this.needsToClose = b;
+//    }
 
     @Override
     public void addLinesToShape(LinkedHashSet<StraightLineIn2D> linesToAdd) throws IllegalArgumentException {
@@ -59,16 +63,16 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
         if (!this.lines.isEmpty()) {
             allLines.addAll(this.lines);
         }
-        //check that lines old lines and new lines don't conflict with each other
+        //check that old lines and new lines don't conflict with each other
         if (checker.shapeIsLegal(allLines)) {
-            //if passed, i add new lines to the actual shape
+            //if passed, I add new lines to the actual shape
             this.lines.addAll(linesToAdd);
+            if (checker.getNeedsToClose()) {
+                this.setClosed();
+            }
         } else {
             throw new IllegalArgumentException("Cannot add lines to the shape.");
         }
-//        if (checker.needsToClose(allLines)) {
-//            this.closed = true;
-//        }
     }
 
     @Override

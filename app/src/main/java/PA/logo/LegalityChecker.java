@@ -2,10 +2,13 @@ package pa.logo;
 
 import pa.logo.model.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 
 public class LegalityChecker {
+
+    private boolean needsToClose;
 
     /**
      * Checks that the coordinates don't violate any rules.
@@ -13,14 +16,26 @@ public class LegalityChecker {
      * @param x      the x coordinate.
      * @param y      the y coordinate.
      * @param canvas the canvas.
+     * @return true if the coordinates are legal, false otherwise.
      */
     public boolean coordinatesAreLegal(double x, double y, CanvasIn2D canvas) {
-        if (x > canvas.getBase() || x > canvas.getHeight()) {
-            if (y > canvas.getBase() || y > canvas.getHeight()) {
-                return false;
-            }
+        if (withinCanvasLimits(x, y, canvas)) return true;
+        return false;
+    }
+
+    /**
+     * Checks that the coordinates are within the limits of the canvas.
+     *
+     * @param x      the x coordinate.
+     * @param y      the y coordinate.
+     * @param canvas the canvas.
+     * @return true if the coordinates are within the limits of the canvas, false otherwise.
+     */
+    private boolean withinCanvasLimits(double x, double y, CanvasIn2D canvas) {
+        if (x > canvas.getBase() || x > canvas.getHeight() || y > canvas.getBase() || y > canvas.getHeight() || x < 0.0 || y < 0.0) {
+            return false;
         }
-        return !(x < 0.0) && !(y < 0.0);
+        return true;
     }
 
     /**
@@ -34,7 +49,7 @@ public class LegalityChecker {
         if (line == null) throw new NullPointerException("Line cannot be null.");
 //        if (isDuplicate(line, shape)) throw new IllegalArgumentException("Cannot have duplicate lines.");
     }
-//
+
 //    /**
 //     * Checks the line is duplicate inside the shape.
 //     *
@@ -58,7 +73,7 @@ public class LegalityChecker {
      * @return true if the shape is legal, false otherwise.
      */
     public boolean shapeIsLegal(LinkedHashSet<StraightLineIn2D> lines) {
-        return !hasIllegalNumberOfEnds(lines);
+        return hasLegalNumberOfEnds(lines);
     }
 
     /**
@@ -68,87 +83,86 @@ public class LegalityChecker {
      * If it has 2 ends, the shape is open.
      *
      * @param lines the lines from the shape.
-     * @return true if the shape has an illegal number of ends, false otherwise.
+     * @return true if the shape has a legal number of ends, false otherwise.
      */
-    private boolean hasIllegalNumberOfEnds(LinkedHashSet<StraightLineIn2D> lines) {
-        //get all the coordinates from all the lines inside the shape
-        LinkedHashSet<LogoPointIn2D> coordinates = getAllCoordinates(lines);
+    private boolean hasLegalNumberOfEnds(LinkedHashSet<StraightLineIn2D> lines) {
+        //get all the points from all the lines inside the shape
+        ArrayList<LogoPointIn2D> points = getAllPoints(lines);
         //check how many times each coordinate appears and save it into a hashmap
-        HashMap<LogoPointIn2D, Integer> occurrences = generateNumberOfOccurrences(coordinates);
+        HashMap<LogoPointIn2D, Integer> occurrences = generateNumberOfOccurrences(points);
         //check how many ends the shape has by counting the number of ends in the shape
         int ends = getNumberOfEndsOfShape(occurrences);
-        if (ends > 2 || ends == 1) {
+        System.out.println("number of ends: " + ends);
+//        if (ends > 2 || ends == 1) {
+//            return false;
+//        } else
+        if (ends == 2) {
             return true;
-        } else if (ends == 2) {
-            return false;
         } else if (ends == 0) {
-            return false;
-        } else {
+            setNeedsToClose(true);
             return true;
+        } else {
+            return false;
         }
     }
 
     /**
-     * Gets all the coordinates from all the lines in the given shape.
+     * Gets all the start and end points from all the lines in the given shape.
      *
      * @param lines the lines in the shape.
-     * @return an ArrayList with all the coordinates from all the lines inside the shape.
+     * @return an ArrayList with all the points from all the lines inside the shape.
      */
-    private LinkedHashSet<LogoPointIn2D> getAllCoordinates(LinkedHashSet<StraightLineIn2D> lines) {
-        LinkedHashSet<LogoPointIn2D> coordinates = new LinkedHashSet<>();
+    private ArrayList<LogoPointIn2D> getAllPoints(LinkedHashSet<StraightLineIn2D> lines) {
+        ArrayList<LogoPointIn2D> points = new ArrayList<>();
         for (StraightLineIn2D line : lines) {
-            coordinates.addAll(line.getPoints());
+            points.addAll(line.getPoints());
         }
-        return coordinates;
+        return points;
     }
 
     /**
      * Records how many times each coordinate appears in the given ArrayList.
      *
-     * @param coordinates the ArrayList containing all coordinates.
+     * @param p the ArrayList containing all points.
      * @return a HashMap with each coordinate and how many times it occurs.
      */
-    private HashMap<LogoPointIn2D, Integer> generateNumberOfOccurrences(LinkedHashSet<LogoPointIn2D> coordinates) {
-        HashMap<LogoPointIn2D, Integer> coordinatesWithOccurrence = new HashMap<>();
-        for (LogoPointIn2D coordinate : coordinates) {
-            if (coordinatesWithOccurrence.containsKey(coordinate)) {
-                int newValue = coordinatesWithOccurrence.get(coordinate) + 1;
+    private HashMap<LogoPointIn2D, Integer> generateNumberOfOccurrences(ArrayList<LogoPointIn2D> p) {
+        HashMap<LogoPointIn2D, Integer> pointsWithOccurrences = new HashMap<>();
+        for (LogoPointIn2D point : p) {
+            if (pointsWithOccurrences.containsKey(point)) {
+                int newValue = pointsWithOccurrences.get(point) + 1;
                 //I update the value
-                coordinatesWithOccurrence.put(coordinate, newValue);
+                pointsWithOccurrences.put(point, newValue);
             } else {
-                //It's the first time I see the coordinate, so I add it.
-                coordinatesWithOccurrence.put(coordinate, 1);
+                //It's the first time I see the point, so I add it.
+                pointsWithOccurrences.put(point, 1);
             }
         }
-        return coordinatesWithOccurrence;
+        return pointsWithOccurrences;
     }
 
     /**
-     * Counts how many coordinates occur only once, which means that they correspond to one end of the shape.
+     * Counts how many points occur only once, which means that they correspond to one end of the shape.
      *
-     * @param studiedCoordinates the coordinates with their respective number of appearences in allCoordinates.
+     * @param studiedPoints the points with their respective number of appearances in allPoints.
      * @return how many ends of shape are found.
      */
-    private int getNumberOfEndsOfShape(HashMap<LogoPointIn2D, Integer> studiedCoordinates) {
-        int numberOfEndsOfShape = 0;
-        for (Integer value : studiedCoordinates.values()) {
+    private int getNumberOfEndsOfShape(HashMap<LogoPointIn2D, Integer> studiedPoints) {
+        int counter = 0;
+        for (Integer value : studiedPoints.values()) {
             if (value == 1) {
-                numberOfEndsOfShape++;
+                counter++;
             }
+            System.out.println("num end of shape: " + counter);
         }
-        return numberOfEndsOfShape;
+        return counter;
     }
 
-    /**
-     * Checks if shape needs to be closed.
-     *
-     * @param lines the lines.
-     * @return true if the shape needs to be set closed, false otherwise.
-     */
-    public boolean needsToClose(LinkedHashSet<StraightLineIn2D> lines) {
-        LinkedHashSet<LogoPointIn2D> coordinates = getAllCoordinates(lines);
-        HashMap<LogoPointIn2D, Integer> occurrences = generateNumberOfOccurrences(coordinates);
-        int ends = getNumberOfEndsOfShape(occurrences);
-        return (ends == 0);
+    public boolean getNeedsToClose() {
+        return needsToClose;
+    }
+
+    public void setNeedsToClose(boolean b) {
+        this.needsToClose = b;
     }
 }

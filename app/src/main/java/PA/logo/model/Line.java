@@ -2,6 +2,7 @@ package pa.logo.model;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 /**
@@ -16,7 +17,7 @@ public interface Line<P extends Point2D> {
      *
      * @return a Set with the coordinates.
      */
-    LinkedHashSet<P> getPoints();
+    ArrayList<P> getPoints();
 
     /**
      * Gets the color of the line.

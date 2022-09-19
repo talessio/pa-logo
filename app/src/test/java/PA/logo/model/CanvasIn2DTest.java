@@ -16,12 +16,12 @@ public class CanvasIn2DTest {
     LogoPointIn2D coordinate3 = new LogoPointIn2D(2.0, 3.0, canvas);
     LogoPointIn2D coordinate4 = new LogoPointIn2D(6.0, 2.0, canvas);
     StraightLineIn2D line2 = new StraightLineIn2D(coordinate3, coordinate4, Color.yellow);
+    LogoPointIn2D coordinate5 = new LogoPointIn2D(6.0, 2.0, canvas);
+    LogoPointIn2D coordinate6 = new LogoPointIn2D(33.5, 44.0, canvas);
+    StraightLineIn2D line3 = new StraightLineIn2D(coordinate5, coordinate6, Color.green);
     LogoPointIn2D coordinate7 = new LogoPointIn2D(33.5, 44.0, canvas);
     LogoPointIn2D coordinate8 = new LogoPointIn2D(5.5, 14.7, canvas);
     StraightLineIn2D line4 = new StraightLineIn2D(coordinate7, coordinate8, Color.green);
-    LogoPointIn2D coordinate9 = new LogoPointIn2D(6.0, 2.0, canvas);
-    LogoPointIn2D coordinate10 = new LogoPointIn2D(33.5, 44.0, canvas);
-    StraightLineIn2D line5 = new StraightLineIn2D(coordinate9, coordinate10, Color.green);
     LinkedHashSet<StraightLineIn2D> linesInShape1 = new LinkedHashSet<>();
     LinkedHashSet<StraightLineIn2D> linesInShape2 = new LinkedHashSet<>();
     ShapeIn2D shape1 = new ShapeIn2D(linesInShape1);
@@ -33,10 +33,10 @@ public class CanvasIn2DTest {
         LinkedHashSet<StraightLineIn2D> linesForShape2 = new LinkedHashSet<>();
         linesForShape1.add(line1);
         linesForShape1.add(line2);
+        linesForShape2.add(line3);
         linesForShape2.add(line4);
-        linesForShape2.add(line5);
         this.shape1.addLinesToShape(linesForShape1);
-        this.shape1.setShapeColor(Color.cyan);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> this.shape1.setShapeColor(Color.cyan));
         this.shape2.addLinesToShape(linesForShape2);
 //        canvas.addShapeToCanvas(shape1);
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape1));
