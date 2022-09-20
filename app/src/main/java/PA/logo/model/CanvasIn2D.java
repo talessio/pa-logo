@@ -74,7 +74,7 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
         if (shape1 == null || shape2 == null || color == null) {
             throw new NullPointerException();
         }
-        ShapeIn2D newShape = new ShapeIn2D(shape1.getShapeLines(), color);
+        ShapeIn2D newShape = new ShapeIn2D(shape1.getShapeLines(), color, this);
         newShape.addLinesToShape(shape2.getShapeLines());
         LegalityChecker checker = new LegalityChecker();
         if (checker.shapeIsLegal(newShape.getShapeLines())) {

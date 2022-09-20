@@ -45,14 +45,14 @@ public class StraightLineIn2DTest {
 
     @Test
     public void getCoordinatesTest() {
-        ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
+        ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan, this.canvas);
         LinkedHashSet<StraightLineIn2D> linesForShape1 = new LinkedHashSet<>();
         linesForShape1.add(line1);
         linesForShape1.add(line2);
         linesForShape1.add(line3);
         shape1.addLinesToShape(linesForShape1);
         shape1.setClosed();
-        ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
+        ShapeIn2D shape2 = new ShapeIn2D(linesInShape2, this.canvas);
         LinkedHashSet<StraightLineIn2D> lineForShape2 = new LinkedHashSet<>();
         lineForShape2.add(line4);
         shape2.addLinesToShape(lineForShape2);
@@ -67,14 +67,14 @@ public class StraightLineIn2DTest {
 
     @Test
     public void getLineColorTest() {
-        ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan);
+        ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, Color.cyan, this.canvas);
         LinkedHashSet<StraightLineIn2D> linesToAdd = new LinkedHashSet<>();
         linesToAdd.add(line1);
         linesToAdd.add(line2);
         linesToAdd.add(line3);
         shape1.addLinesToShape(linesToAdd);
         shape1.setClosed();
-        ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
+        ShapeIn2D shape2 = new ShapeIn2D(linesInShape2, this.canvas);
         LinkedHashSet<StraightLineIn2D> lineToAdd = new LinkedHashSet<>();
         lineToAdd.add(line4);
         shape2.addLinesToShape(lineToAdd);

@@ -27,37 +27,29 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
      *
      * @param linesInShape the lines to add to the shape. Must contain at least one line.
      * @param color        the fill color, provided the shape is closed.
+     * @param canvas       the canvas where the shape is located.
      */
-    public ShapeIn2D(LinkedHashSet<StraightLineIn2D> linesInShape, Color color) {
+    public ShapeIn2D(LinkedHashSet<StraightLineIn2D> linesInShape, Color color, CanvasIn2D canvas) {
         this.addLinesToShape(linesInShape);
         if (!isClosed()) {
             this.fillColor = color;
         } else {
             throw new IllegalArgumentException("Open shapes cannot have fill color.");
         }
-        this.canvas = linesInShape.stream().findFirst().get().getCanvas();
-//        for (StraightLineIn2D l : linesInShape) {
-//            this.canvas = l.getCanvas();
-//            this.canvas.addShapeToCanvas(this);
-//            break;
-//        }
-        this.canvas.addShapeToCanvas(this);
+        this.canvas = canvas;
+        canvas.addShapeToCanvas(this);
     }
 
     /**
      * A shape in 2D.
      *
      * @param linesInShape the lines to add to the shape. Must contain at least one line.
+     * @param canvas       the canvas where the shape is located.
      */
-    public ShapeIn2D(LinkedHashSet<StraightLineIn2D> linesInShape) {
+    public ShapeIn2D(LinkedHashSet<StraightLineIn2D> linesInShape, CanvasIn2D canvas) {
         this.addLinesToShape(linesInShape);
-        this.canvas = linesInShape.stream().findFirst().get().getCanvas();
-//        for (StraightLineIn2D l : linesInShape) {
-//            this.canvas = l.getCanvas();
-//            this.canvas.addShapeToCanvas(this);
-//            break;
-//        }
-        this.canvas.addShapeToCanvas(this);
+        this.canvas = canvas;
+        canvas.addShapeToCanvas(this);
     }
 //
 //    public void setNeedsToClose(boolean b) {

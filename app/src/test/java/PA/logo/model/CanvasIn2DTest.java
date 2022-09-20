@@ -29,7 +29,7 @@ public class CanvasIn2DTest {
     public void Test() {
         LinkedHashSet<StraightLineIn2D> linesForShape1 = new LinkedHashSet<>();
         linesForShape1.add(line1);
-        ShapeIn2D shape1 = new ShapeIn2D(linesForShape1);
+        ShapeIn2D shape1 = new ShapeIn2D(linesForShape1, this.canvas);
         Assertions.assertFalse(shape1.isClosed());
         Assertions.assertNull(shape1.getShapeColor());
         LinkedHashSet<StraightLineIn2D> moreLinesForShape1 = new LinkedHashSet<>();
@@ -39,7 +39,7 @@ public class CanvasIn2DTest {
         LinkedHashSet<StraightLineIn2D> linesForShape2 = new LinkedHashSet<>();
         linesForShape2.add(line3);
         linesForShape2.add(line4);
-        ShapeIn2D shape2 = new ShapeIn2D(linesForShape2);
+        ShapeIn2D shape2 = new ShapeIn2D(linesForShape2, this.canvas);
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape1));
         Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape2));
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape2));

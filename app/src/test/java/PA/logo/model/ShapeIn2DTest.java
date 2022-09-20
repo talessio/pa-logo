@@ -23,8 +23,8 @@ public class ShapeIn2DTest {
     LogoPointIn2D coordinate7 = new LogoPointIn2D(33.5, 44.0, canvas);
     LogoPointIn2D coordinate8 = new LogoPointIn2D(14.7, 5.5, canvas);
     StraightLineIn2D line4 = new StraightLineIn2D(coordinate7, coordinate8, Color.green);
-    ShapeIn2D shape1 = new ShapeIn2D(linesInShape1);
-    ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
+    ShapeIn2D shape1 = new ShapeIn2D(linesInShape1, canvas);
+    ShapeIn2D shape2 = new ShapeIn2D(linesInShape2, canvas);
 
 
     @Test
