@@ -22,31 +22,30 @@ public class CanvasIn2DTest {
     LogoPointIn2D coordinate7 = new LogoPointIn2D(33.5, 44.0, canvas);
     LogoPointIn2D coordinate8 = new LogoPointIn2D(5.5, 14.7, canvas);
     StraightLineIn2D line4 = new StraightLineIn2D(coordinate7, coordinate8, Color.green);
-    LinkedHashSet<StraightLineIn2D> linesInShape1 = new LinkedHashSet<>();
-    LinkedHashSet<StraightLineIn2D> linesInShape2 = new LinkedHashSet<>();
-    ShapeIn2D shape1 = new ShapeIn2D(linesInShape1);
-    ShapeIn2D shape2 = new ShapeIn2D(linesInShape2);
+//    LinkedHashSet<StraightLineIn2D> linesInShape1 = new LinkedHashSet<>();
+//    LinkedHashSet<StraightLineIn2D> linesInShape2 = new LinkedHashSet<>();
 
     @Test
     public void Test() {
         LinkedHashSet<StraightLineIn2D> linesForShape1 = new LinkedHashSet<>();
-        LinkedHashSet<StraightLineIn2D> linesForShape2 = new LinkedHashSet<>();
         linesForShape1.add(line1);
-        linesForShape1.add(line2);
+        ShapeIn2D shape1 = new ShapeIn2D(linesForShape1);
+        Assertions.assertFalse(shape1.isClosed());
+        Assertions.assertNull(shape1.getShapeColor());
+        LinkedHashSet<StraightLineIn2D> moreLinesForShape1 = new LinkedHashSet<>();
+        moreLinesForShape1.add(line2);
+        shape1.addLinesToShape(moreLinesForShape1);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> shape1.setShapeColor(Color.cyan));
+        LinkedHashSet<StraightLineIn2D> linesForShape2 = new LinkedHashSet<>();
         linesForShape2.add(line3);
         linesForShape2.add(line4);
-        this.shape1.addLinesToShape(linesForShape1);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> this.shape1.setShapeColor(Color.cyan));
-        this.shape2.addLinesToShape(linesForShape2);
-//        canvas.addShapeToCanvas(shape1);
+        ShapeIn2D shape2 = new ShapeIn2D(linesForShape2);
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape1));
         Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape2));
-//        canvas.addShapeToCanvas(shape2);
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape2));
         canvas.removeShapeFromCanvas(shape1);
         Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape1));
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape2));
-//        canvas.addShapeToCanvas(shape1);
         ShapeIn2D newShape = canvas.mergeShapes(shape1, shape2, Color.yellow);
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(newShape));
         Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape1));
