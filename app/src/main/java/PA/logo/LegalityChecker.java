@@ -93,7 +93,7 @@ public class LegalityChecker {
             return false;
         }
         int ends = getNumberOfEndsOfShape(occurrences);
-        System.out.println("number of ends: " + ends);
+//        System.out.println("number of ends: " + ends);
 //        if (ends > 2 || ends == 1) {
 //            return false;
 //        } else
@@ -154,7 +154,7 @@ public class LegalityChecker {
             if (value == 1) {
                 counter++;
             }
-            System.out.println("num end of shape counted: " + counter);
+//            System.out.println("num end of shape counted: " + counter);
         }
         return counter;
     }

@@ -12,11 +12,12 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
     private final double height;
     private final double base;
     private Color canvasColor = Color.white;
+    private final CursorIn2D cursor;
 
     /**
-     * Array List of all the shapes that are on the canvas.
+     * Linked Hash Set of all the shapes located on the canvas.
      */
-    LinkedHashSet<ShapeIn2D> allShapesInCanvas = new LinkedHashSet<>();
+    LinkedHashSet<ShapeIn2D> allShapesInCanvas;
 
     public CanvasIn2D(double height, double base, LinkedHashSet<ShapeIn2D> shapes) {
         if (height == 0.0 || base == 0.0)
@@ -24,6 +25,7 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
         this.height = height;
         this.base = base;
         this.allShapesInCanvas = shapes;
+        this.cursor = new CursorIn2D(this);
     }
 
     public CanvasIn2D(double height, double base, Color canvasColor, LinkedHashSet<ShapeIn2D> shapes) {
@@ -33,6 +35,7 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
         this.base = base;
         this.canvasColor = canvasColor;
         this.allShapesInCanvas = shapes;
+        this.cursor = new CursorIn2D(this);
     }
 
     /**
@@ -74,7 +77,7 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
         if (shape1 == null || shape2 == null || color == null) {
             throw new NullPointerException();
         }
-        ShapeIn2D newShape = new ShapeIn2D(shape1.getShapeLines(), color, this);
+        ShapeIn2D newShape = new ShapeIn2D(shape1.getShapeLines(), this, color);
         newShape.addLinesToShape(shape2.getShapeLines());
         LegalityChecker checker = new LegalityChecker();
         if (checker.shapeIsLegal(newShape.getShapeLines())) {
@@ -87,10 +90,14 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
         }
     }
 
+    public CursorIn2D getCursor() {
+        return cursor;
+    }
+
     @Override
     public void addShapeToCanvas(ShapeIn2D shape) {
         if (shape == null) throw new NullPointerException();
-        this.allShapesInCanvas.add(shape);
+        else this.allShapesInCanvas.add(shape);
     }
 
     @Override

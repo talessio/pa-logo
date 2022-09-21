@@ -25,31 +25,31 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
     /**
      * A shape in 2D.
      *
-     * @param linesInShape the lines to add to the shape. Must contain at least one line.
-     * @param color        the fill color, provided the shape is closed.
-     * @param canvas       the canvas where the shape is located.
+     * @param l   the lines to add to the shape. Must contain at least one line.
+     * @param c   the canvas where the shape is located.
+     * @param col the fill color, provided the shape is closed.
      */
-    public ShapeIn2D(LinkedHashSet<StraightLineIn2D> linesInShape, Color color, CanvasIn2D canvas) {
-        this.addLinesToShape(linesInShape);
+    public ShapeIn2D(LinkedHashSet<StraightLineIn2D> l, CanvasIn2D c, Color col) {
+        this.addLinesToShape(l);
         if (!isClosed()) {
-            this.fillColor = color;
+            this.fillColor = col;
         } else {
             throw new IllegalArgumentException("Open shapes cannot have fill color.");
         }
-        this.canvas = canvas;
-        canvas.addShapeToCanvas(this);
+        this.canvas = c;
+        c.addShapeToCanvas(this);
     }
 
     /**
      * A shape in 2D.
      *
-     * @param linesInShape the lines to add to the shape. Must contain at least one line.
-     * @param canvas       the canvas where the shape is located.
+     * @param l the lines to add to the shape. Must contain at least one line.
+     * @param c the canvas where the shape is located.
      */
-    public ShapeIn2D(LinkedHashSet<StraightLineIn2D> linesInShape, CanvasIn2D canvas) {
-        this.addLinesToShape(linesInShape);
-        this.canvas = canvas;
-        canvas.addShapeToCanvas(this);
+    public ShapeIn2D(LinkedHashSet<StraightLineIn2D> l, CanvasIn2D c) {
+        this.addLinesToShape(l);
+        this.canvas = c;
+        c.addShapeToCanvas(this);
     }
 //
 //    public void setNeedsToClose(boolean b) {
@@ -119,5 +119,10 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
     @Override
     public int hashCode() {
         return Objects.hash(fillColor, closed, canvas, lines);
+    }
+
+    @Override
+    public String toString() {
+        return "ShapeIn2D{" + "fillColor=" + fillColor + ", closed=" + closed + ", canvas=" + canvas + ", lines=" + lines + '}';
     }
 }

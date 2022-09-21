@@ -39,9 +39,14 @@ public class CanvasIn2DTest {
         LinkedHashSet<StraightLineIn2D> linesForShape2 = new LinkedHashSet<>();
         linesForShape2.add(line3);
         linesForShape2.add(line4);
+        Assertions.assertEquals(canvas.getAllShapesInCanvas().size(), 1);
         ShapeIn2D shape2 = new ShapeIn2D(linesForShape2, this.canvas);
-        Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape1));
-        Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape2));
+        Assertions.assertEquals(canvas.getAllShapesInCanvas().size(), 2);
+        System.out.println(canvas.allShapesInCanvas.stream().filter(x -> x.equals(shape1)).toList().get(0).toString());
+        Assertions.assertEquals(canvas.allShapesInCanvas.stream().filter(x -> x.equals(shape1)).toList().get(0).toString(), shape1.toString());
+        System.out.println(canvas.allShapesInCanvas.stream().filter(x -> x.equals(shape2)).toList().get(0).toString());
+        Assertions.assertEquals(canvas.allShapesInCanvas.stream().filter(x -> x.equals(shape2)).toList().get(0).toString(), shape2.toString());
+        Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape1)); //solo questo da errore, wtf
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape2));
         canvas.removeShapeFromCanvas(shape1);
         Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape1));
@@ -50,5 +55,6 @@ public class CanvasIn2DTest {
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(newShape));
         Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape1));
         Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape2));
+        System.out.println(canvas.allShapesInCanvas.stream().filter(x -> x.equals(newShape)).toList().get(0).toString());
     }
 }
