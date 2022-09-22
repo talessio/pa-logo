@@ -10,20 +10,15 @@ public class CanvasIn2DTest {
 
     LinkedHashSet<ShapeIn2D> shapesInCanvas = new LinkedHashSet<>();
     CanvasIn2D canvas = new CanvasIn2D(100.0, 100.0, Color.lightGray, shapesInCanvas);
-    LogoPointIn2D coordinate1 = new LogoPointIn2D(1.0, 1.0, canvas);
-    LogoPointIn2D coordinate2 = new LogoPointIn2D(2.0, 3.0, canvas);
-    StraightLineIn2D line1 = new StraightLineIn2D(coordinate1, coordinate2, Color.pink);
-    LogoPointIn2D coordinate3 = new LogoPointIn2D(2.0, 3.0, canvas);
-    LogoPointIn2D coordinate4 = new LogoPointIn2D(6.0, 2.0, canvas);
-    StraightLineIn2D line2 = new StraightLineIn2D(coordinate3, coordinate4, Color.yellow);
-    LogoPointIn2D coordinate5 = new LogoPointIn2D(6.0, 2.0, canvas);
-    LogoPointIn2D coordinate6 = new LogoPointIn2D(33.5, 44.0, canvas);
-    StraightLineIn2D line3 = new StraightLineIn2D(coordinate5, coordinate6, Color.green);
-    LogoPointIn2D coordinate7 = new LogoPointIn2D(33.5, 44.0, canvas);
-    LogoPointIn2D coordinate8 = new LogoPointIn2D(5.5, 14.7, canvas);
-    StraightLineIn2D line4 = new StraightLineIn2D(coordinate7, coordinate8, Color.green);
-//    LinkedHashSet<StraightLineIn2D> linesInShape1 = new LinkedHashSet<>();
-//    LinkedHashSet<StraightLineIn2D> linesInShape2 = new LinkedHashSet<>();
+    LogoPointIn2D point1 = new LogoPointIn2D(1.0, 1.0, canvas);
+    LogoPointIn2D point2 = new LogoPointIn2D(2.0, 3.0, canvas);
+    LogoPointIn2D point3 = new LogoPointIn2D(6.0, 2.0, canvas);
+    LogoPointIn2D point4 = new LogoPointIn2D(33.5, 44.0, canvas);
+    LogoPointIn2D point5 = new LogoPointIn2D(5.5, 14.7, canvas);
+    StraightLineIn2D line1 = new StraightLineIn2D(point1, point2, Color.pink);
+    StraightLineIn2D line2 = new StraightLineIn2D(point2, point3, Color.yellow);
+    StraightLineIn2D line3 = new StraightLineIn2D(point3, point4, Color.green);
+    StraightLineIn2D line4 = new StraightLineIn2D(point4, point5, Color.green);
 
     @Test
     public void Test() {
@@ -39,19 +34,20 @@ public class CanvasIn2DTest {
         LinkedHashSet<StraightLineIn2D> linesForShape2 = new LinkedHashSet<>();
         linesForShape2.add(line3);
         linesForShape2.add(line4);
-        Assertions.assertEquals(canvas.getAllShapesInCanvas().size(), 1);
+        Assertions.assertEquals(1, canvas.getAllShapesInCanvas().size());
         ShapeIn2D shape2 = new ShapeIn2D(linesForShape2, this.canvas);
-        Assertions.assertEquals(canvas.getAllShapesInCanvas().size(), 2);
-        System.out.println(canvas.allShapesInCanvas.stream().filter(x -> x.equals(shape1)).toList().get(0).toString());
-        Assertions.assertEquals(canvas.allShapesInCanvas.stream().filter(x -> x.equals(shape1)).toList().get(0).toString(), shape1.toString());
-        System.out.println(canvas.allShapesInCanvas.stream().filter(x -> x.equals(shape2)).toList().get(0).toString());
-        Assertions.assertEquals(canvas.allShapesInCanvas.stream().filter(x -> x.equals(shape2)).toList().get(0).toString(), shape2.toString());
-        Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape1)); //solo questo da errore, wtf
+        Assertions.assertEquals(2, canvas.getAllShapesInCanvas().size());
+        Assertions.assertEquals(shape1, canvas.allShapesInCanvas.stream().filter(x -> x.equals(shape1)).toList().get(0));
+        Assertions.assertEquals(shape2, canvas.allShapesInCanvas.stream().filter(x -> x.equals(shape2)).toList().get(0));
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape2));
-        canvas.removeShapeFromCanvas(shape1);
-        Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape1));
-        Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape2));
-        ShapeIn2D newShape = canvas.mergeShapes(shape1, shape2, Color.yellow);
+        Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape1)); //solo questo da errore, whyyyy
+        ShapeIn2D newShape = canvas.mergeShapes(shape1, shape2);
+        StraightLineIn2D closingLine = new StraightLineIn2D(point5, point1);
+        LinkedHashSet<StraightLineIn2D> closingLHS = new LinkedHashSet<>();
+        closingLHS.add(closingLine);
+        newShape.addLinesToShape(closingLHS);
+        Assertions.assertEquals(1, canvas.allShapesInCanvas.size()); //and because of the previous mistake, shape1 is not being deleted either
+        newShape.setShapeColor(Color.yellow);
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(newShape));
         Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape1));
         Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape2));

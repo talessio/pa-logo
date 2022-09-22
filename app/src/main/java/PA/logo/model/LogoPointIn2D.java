@@ -113,4 +113,13 @@ public class LogoPointIn2D extends Point2D {
     public int hashCode() {
         return Objects.hash(super.hashCode(), x, y, canvas);
     }
+
+    @Override
+    public String toString() {
+        return "LogoPointIn2D{" +
+                "x=" + x +
+                ", y=" + y +
+                ", canvas=" + canvas +
+                '}';
+    }
 }

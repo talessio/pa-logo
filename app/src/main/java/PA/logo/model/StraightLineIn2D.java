@@ -103,4 +103,14 @@ public class StraightLineIn2D extends Line2D implements Line<LogoPointIn2D> {
     public int hashCode() {
         return Objects.hash(point1, point2, color);
     }
+
+    @Override
+    public String toString() {
+        return "StraightLineIn2D{" +
+                "point1=" + point1 +
+                ", point2=" + point2 +
+                ", color=" + color +
+                ", canvas=" + canvas +
+                '}';
+    }
 }

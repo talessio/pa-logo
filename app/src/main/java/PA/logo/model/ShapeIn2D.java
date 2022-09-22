@@ -21,25 +21,6 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
      */
     private LinkedHashSet<StraightLineIn2D> lines = new LinkedHashSet<>();
 
-
-    /**
-     * A shape in 2D.
-     *
-     * @param l   the lines to add to the shape. Must contain at least one line.
-     * @param c   the canvas where the shape is located.
-     * @param col the fill color, provided the shape is closed.
-     */
-    public ShapeIn2D(LinkedHashSet<StraightLineIn2D> l, CanvasIn2D c, Color col) {
-        this.addLinesToShape(l);
-        if (!isClosed()) {
-            this.fillColor = col;
-        } else {
-            throw new IllegalArgumentException("Open shapes cannot have fill color.");
-        }
-        this.canvas = c;
-        c.addShapeToCanvas(this);
-    }
-
     /**
      * A shape in 2D.
      *
@@ -51,10 +32,6 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
         this.canvas = c;
         c.addShapeToCanvas(this);
     }
-//
-//    public void setNeedsToClose(boolean b) {
-//        this.needsToClose = b;
-//    }
 
     @Override
     public void addLinesToShape(LinkedHashSet<StraightLineIn2D> linesToAdd) throws IllegalArgumentException {

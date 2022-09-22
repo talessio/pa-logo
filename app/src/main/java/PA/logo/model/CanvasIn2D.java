@@ -70,20 +70,25 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
      *
      * @param shape1 the first shape.
      * @param shape2 the second shape.
-     * @param color  the new fill color for the merged shape.
-     * @return the new shape.
+     * @return the new shape in 2D that merges shape 1 and 2.
      */
-    public ShapeIn2D mergeShapes(ShapeIn2D shape1, ShapeIn2D shape2, Color color) throws NullPointerException, IllegalArgumentException {
-        if (shape1 == null || shape2 == null || color == null) {
+    public ShapeIn2D mergeShapes(ShapeIn2D shape1, ShapeIn2D shape2) throws NullPointerException, IllegalArgumentException {
+        if (shape1 == null || shape2 == null) {
             throw new NullPointerException();
         }
-        ShapeIn2D newShape = new ShapeIn2D(shape1.getShapeLines(), this, color);
-        newShape.addLinesToShape(shape2.getShapeLines());
+        LinkedHashSet<StraightLineIn2D> newSet = new LinkedHashSet<>();
+        for (StraightLineIn2D l : shape1.getShapeLines()) {
+            newSet.add(l);
+        }
+        for (StraightLineIn2D l : shape2.getShapeLines()) {
+            newSet.add(l);
+        }
         LegalityChecker checker = new LegalityChecker();
-        if (checker.shapeIsLegal(newShape.getShapeLines())) {
+        if (checker.shapeIsLegal(newSet)) {
+            ShapeIn2D newShape = new ShapeIn2D(newSet, this);
+            this.addShapeToCanvas(newShape);
             this.removeShapeFromCanvas(shape1);
             this.removeShapeFromCanvas(shape2);
-            this.addShapeToCanvas(newShape);
             return newShape;
         } else {
             throw new IllegalArgumentException("Impossible to merge the two shapes.");
