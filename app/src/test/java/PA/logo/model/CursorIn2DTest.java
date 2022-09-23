@@ -4,12 +4,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 public class CursorIn2DTest {
     @Test
     public void Test() {
-        LinkedHashSet<ShapeIn2D> shapes = new LinkedHashSet<>();
+        ArrayList<ShapeIn2D> shapes = new ArrayList<>();
         CanvasIn2D c = new CanvasIn2D(100, 100, shapes);
         Assertions.assertTrue(c.getCursor().getPenColor() == Color.black);
         c.getCursor().setPenColor(Color.blue);

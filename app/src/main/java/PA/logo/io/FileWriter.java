@@ -7,6 +7,9 @@ import pa.logo.model.StraightLineIn2D;
 import java.nio.file.Path;
 import java.util.LinkedHashSet;
 
+/**
+ * A file writer for logo.
+ */
 public class FileWriter implements LogoWriter<LogoPointIn2D, StraightLineIn2D, ShapeIn2D> {
 
     @Override

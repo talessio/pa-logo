@@ -1,6 +1,7 @@
 package pa.logo.model;
 
-import pa.logo.LegalityChecker;
+import pa.logo.LineChecker;
+import pa.logo.ShapeChecker;
 
 import java.awt.*;
 import java.util.LinkedHashSet;
@@ -35,21 +36,22 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
 
     @Override
     public void addLinesToShape(LinkedHashSet<StraightLineIn2D> linesToAdd) throws IllegalArgumentException {
-        LegalityChecker checker = new LegalityChecker();
+        if (this.isClosed()) throw new IllegalArgumentException("Shape is closed to new lines.");
         LinkedHashSet<StraightLineIn2D> allLines = new LinkedHashSet<>();
-        for (StraightLineIn2D line : linesToAdd) {
-            checker.lineIsLegal(line, this);
-            allLines.add(line);
+        for (StraightLineIn2D l : linesToAdd) {
+            if (l == null) throw new NullPointerException("Line cannot be null.");
+            allLines.add(l);
         }
         //putting new lines and old lines together in a mock shape to test
         if (!this.lines.isEmpty()) {
             allLines.addAll(this.lines);
         }
         //check that old lines and new lines don't conflict with each other
-        if (checker.shapeIsLegal(allLines)) {
+        ShapeChecker sCh = new ShapeChecker();
+        if (sCh.isLegal(allLines)) {
             //if passed, I add new lines to the actual shape
             this.lines.addAll(linesToAdd);
-            if (checker.getNeedsToClose()) {
+            if (sCh.getNeedsToClose()) {
                 this.setClosed();
             }
         } else {

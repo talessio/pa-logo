@@ -1,6 +1,6 @@
 package pa.logo.model;
 
-import pa.logo.LegalityChecker;
+import pa.logo.CoordinateChecker;
 
 import java.awt.geom.Point2D;
 import java.util.Objects;
@@ -49,15 +49,16 @@ public class LogoPointIn2D extends Point2D {
     }
 
     /**
-     * Implements the coordinate in two dimensions inside a canvas.
+     * Implements the point in two dimensions inside a canvas.
      *
      * @param coordinate1 the x coordinate;
      * @param coordinate2 the y coordinate;
      * @param canvas      the canvas where the coordinate is located;
      */
     public LogoPointIn2D(double coordinate1, double coordinate2, CanvasIn2D canvas) {
-        LegalityChecker check = new LegalityChecker();
-        if (check.coordinatesAreLegal(coordinate1, coordinate2, canvas)) {
+        CoordinateChecker cCh = new CoordinateChecker();
+        cCh.setComparisonSizes(canvas.getHeight(), canvas.getBase());
+        if (cCh.isLegal(coordinate1) && cCh.isLegal(coordinate2)) {
             this.canvas = canvas;
             this.x = coordinate1;
             this.y = coordinate2;
@@ -116,10 +117,6 @@ public class LogoPointIn2D extends Point2D {
 
     @Override
     public String toString() {
-        return "LogoPointIn2D{" +
-                "x=" + x +
-                ", y=" + y +
-                ", canvas=" + canvas +
-                '}';
+        return "LogoPointIn2D{" + "x=" + x + ", y=" + y + ", canvas=" + canvas + '}';
     }
 }

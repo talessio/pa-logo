@@ -74,6 +74,7 @@ public interface Cursor<T extends Number, K extends Number, P extends Point2D, L
      * Sets the fill color of a closed shape.
      *
      * @param color the chosen color in RGB.
+     * @param shape the shape.
      */
     void setFillColor(Color color, S shape);
 
@@ -81,6 +82,7 @@ public interface Cursor<T extends Number, K extends Number, P extends Point2D, L
      * Sets the screen color.
      *
      * @param color the chosen color in RGB.
+     * @param canvas the canvas.
      */
     void setScreenColor(Color color, X canvas);
 

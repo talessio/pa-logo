@@ -7,6 +7,13 @@ import java.awt.geom.Point2D;
 import java.nio.file.Path;
 import java.util.LinkedHashSet;
 
+/**
+ * Writes a file.
+ *
+ * @param <P> a point.
+ * @param <L> a line.
+ * @param <S> a shape.
+ */
 public interface LogoWriter<P extends Point2D, L extends Line<P>, S extends Shape<P, L>> {
 
     /**

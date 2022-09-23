@@ -1,8 +1,9 @@
 package pa.logo.model;
 
-import pa.logo.LegalityChecker;
+import pa.logo.ShapeChecker;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 /**
@@ -15,11 +16,18 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
     private final CursorIn2D cursor;
 
     /**
-     * Linked Hash Set of all the shapes located on the canvas.
+     * ArrayList of all the shapes located on the canvas.
      */
-    LinkedHashSet<ShapeIn2D> allShapesInCanvas;
+    ArrayList<ShapeIn2D> allShapesInCanvas;
 
-    public CanvasIn2D(double height, double base, LinkedHashSet<ShapeIn2D> shapes) {
+    /**
+     * Constructor for a Canvas in 2D.
+     *
+     * @param height the height.
+     * @param base   the base.
+     * @param shapes the ArrayList containing all shapes in canvas.
+     */
+    public CanvasIn2D(double height, double base, ArrayList<ShapeIn2D> shapes) {
         if (height == 0.0 || base == 0.0)
             throw new IllegalArgumentException("Height or base have to be bigger than 0.0");
         this.height = height;
@@ -28,7 +36,15 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
         this.cursor = new CursorIn2D(this);
     }
 
-    public CanvasIn2D(double height, double base, Color canvasColor, LinkedHashSet<ShapeIn2D> shapes) {
+    /**
+     * Constructor for a Canvas in 2D.
+     *
+     * @param height      the height.
+     * @param base        the base.
+     * @param canvasColor the background colour.
+     * @param shapes      the ArrayList containing all shapes in canvas.
+     */
+    public CanvasIn2D(double height, double base, Color canvasColor, ArrayList<ShapeIn2D> shapes) {
         if (height == 0.0 || base == 0.0)
             throw new IllegalArgumentException("Height or base have to be bigger than 0.0");
         this.height = height;
@@ -83,8 +99,8 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
         for (StraightLineIn2D l : shape2.getShapeLines()) {
             newSet.add(l);
         }
-        LegalityChecker checker = new LegalityChecker();
-        if (checker.shapeIsLegal(newSet)) {
+        ShapeChecker checker = new ShapeChecker();
+        if (checker.isLegal(newSet)) {
             ShapeIn2D newShape = new ShapeIn2D(newSet, this);
             this.addShapeToCanvas(newShape);
             this.removeShapeFromCanvas(shape1);
@@ -95,6 +111,11 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
         }
     }
 
+    /**
+     * Gets the cursor.
+     *
+     * @return the cursor.
+     */
     public CursorIn2D getCursor() {
         return cursor;
     }
@@ -112,7 +133,7 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
     }
 
     @Override
-    public LinkedHashSet<ShapeIn2D> getAllShapesInCanvas() {
+    public ArrayList<ShapeIn2D> getAllShapesInCanvas() {
         return allShapesInCanvas;
     }
 
@@ -134,5 +155,10 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
      */
     public LogoPointIn2D getHome() {
         return new LogoPointIn2D(base / 2, height / 2, this);
+    }
+
+    @Override
+    public String toString() {
+        return "CanvasIn2D{" + "height=" + height + ", base=" + base + ", canvasColor=" + canvasColor + '}';
     }
 }

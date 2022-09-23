@@ -15,10 +15,15 @@ public class StraightLineIn2D extends Line2D implements Line<LogoPointIn2D> {
     LogoPointIn2D point1;
     LogoPointIn2D point2;
     Color color;
-
-
     private CanvasIn2D canvas;
 
+    /**
+     * Constructor for straight line in 2D.
+     *
+     * @param start the starting point of the line.
+     * @param end   the ending point of the line.
+     * @param color the colour of the line.
+     */
     public StraightLineIn2D(LogoPointIn2D start, LogoPointIn2D end, Color color) {
         this.point1 = start;
         this.point2 = end;
@@ -26,6 +31,12 @@ public class StraightLineIn2D extends Line2D implements Line<LogoPointIn2D> {
         this.canvas = point1.getCanvas();
     }
 
+    /**
+     * Constructor for straight line in 2D.
+     *
+     * @param start the starting point of the line.
+     * @param end   the ending point of the line.
+     */
     public StraightLineIn2D(LogoPointIn2D start, LogoPointIn2D end) {
         this.point1 = start;
         this.point2 = end;
@@ -33,6 +44,11 @@ public class StraightLineIn2D extends Line2D implements Line<LogoPointIn2D> {
         this.canvas = point1.getCanvas();
     }
 
+    /**
+     * Gets the current canvas.
+     *
+     * @return the current canvas.
+     */
     public CanvasIn2D getCanvas() {
         return this.canvas;
     }
@@ -106,11 +122,6 @@ public class StraightLineIn2D extends Line2D implements Line<LogoPointIn2D> {
 
     @Override
     public String toString() {
-        return "StraightLineIn2D{" +
-                "point1=" + point1 +
-                ", point2=" + point2 +
-                ", color=" + color +
-                ", canvas=" + canvas +
-                '}';
+        return "StraightLineIn2D{" + "point1=" + point1 + ", point2=" + point2 + ", color=" + color + ", canvas=" + canvas + '}';
     }
 }

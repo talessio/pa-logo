@@ -11,13 +11,6 @@ import java.util.LinkedHashSet;
  * @param <L> the line(s).
  */
 public interface Shape<P extends Point2D, L extends Line<P>> {
-//
-//    /**
-//     * Adds a line to the shape.
-//     *
-//     * @param lineToAdd the line to be added.
-//     */
-//    void addLineToShape(L lineToAdd);
 
     /**
      * Adds a number of lines to the shape.

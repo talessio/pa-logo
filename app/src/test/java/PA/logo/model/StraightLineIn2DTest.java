@@ -4,11 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 public class StraightLineIn2DTest {
 
-    LinkedHashSet<ShapeIn2D> shapesInCanvas = new LinkedHashSet<>();
+    ArrayList<ShapeIn2D> shapesInCanvas = new ArrayList<>();
     CanvasIn2D canvas = new CanvasIn2D(100.0, 100.0, Color.lightGray, shapesInCanvas);
     LogoPointIn2D point1 = new LogoPointIn2D(1.0, 1.0, canvas);
     LogoPointIn2D point2 = new LogoPointIn2D(2.0, 3.0, canvas);

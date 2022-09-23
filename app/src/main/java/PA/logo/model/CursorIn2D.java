@@ -14,6 +14,11 @@ public class CursorIn2D implements Cursor<Double, Integer, LogoPointIn2D, Straig
     private int penSize;
     private boolean isWriting;
 
+    /**
+     * Constructor for Cursor in 2D.
+     *
+     * @param canvas the canvas it is bound to.
+     */
     public CursorIn2D(CanvasIn2D canvas) {
         this.canvas = canvas;
         this.currentPosition = new LogoPointIn2D(canvas.getBase() / 2, canvas.getHeight() / 2, canvas);
@@ -170,5 +175,10 @@ public class CursorIn2D implements Cursor<Double, Integer, LogoPointIn2D, Straig
             position.setLocation(position.getX(), 0.0);
         }
         return position;
+    }
+
+    @Override
+    public String toString() {
+        return "CursorIn2D{" + "canvas=" + canvas + ", currentPosition=" + currentPosition + ", currentDirection=" + currentDirection + ", color=" + color + ", penSize=" + penSize + ", isWriting=" + isWriting + '}';
     }
 }

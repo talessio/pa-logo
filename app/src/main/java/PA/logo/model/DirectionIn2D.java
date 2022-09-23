@@ -1,5 +1,8 @@
 package pa.logo.model;
 
+/**
+ * Class that handles direction for the cursor.
+ */
 public class DirectionIn2D implements Direction<Integer> {
 
     @Override

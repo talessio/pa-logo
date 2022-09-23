@@ -6,16 +6,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FileReader implements LogoReader {
-    Path path = Paths.get("../logofile.txt");
+/**
+ * A file reader for logo.
+ */
+public class FileReader {
+    Path path = Paths.get("../logo_file.txt");
     InputStream inStream = Files.newInputStream(path);
     Reader in = new InputStreamReader(inStream, StandardCharsets.UTF_8);
 
+    /**
+     * Reads a file
+     *
+     * @throws IOException if I/O operation fails
+     */
     public FileReader() throws IOException {
-    }
-
-    @Override
-    public void read(Path path) {
-
     }
 }

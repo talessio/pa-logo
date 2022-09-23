@@ -2,7 +2,7 @@ package pa.logo.model;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
 
 /**
  * Defines the canvas on which one draws.
@@ -18,7 +18,7 @@ public interface Canvas<P extends Point2D, L extends Line<P>, S extends Shape<P,
      *
      * @return a Set with all the shapes.
      */
-    LinkedHashSet<S> getAllShapesInCanvas();
+    ArrayList<S> getAllShapesInCanvas();
 
     /**
      * Get the color of the area.

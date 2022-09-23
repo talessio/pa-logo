@@ -4,11 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 public class CanvasIn2DTest {
 
-    LinkedHashSet<ShapeIn2D> shapesInCanvas = new LinkedHashSet<>();
+    ArrayList<ShapeIn2D> shapesInCanvas = new ArrayList<>();
     CanvasIn2D canvas = new CanvasIn2D(100.0, 100.0, Color.lightGray, shapesInCanvas);
     LogoPointIn2D point1 = new LogoPointIn2D(1.0, 1.0, canvas);
     LogoPointIn2D point2 = new LogoPointIn2D(2.0, 3.0, canvas);
@@ -40,17 +41,17 @@ public class CanvasIn2DTest {
         Assertions.assertEquals(shape1, canvas.allShapesInCanvas.stream().filter(x -> x.equals(shape1)).toList().get(0));
         Assertions.assertEquals(shape2, canvas.allShapesInCanvas.stream().filter(x -> x.equals(shape2)).toList().get(0));
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape2));
-        Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape1)); //solo questo da errore, whyyyy
+        Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(shape1));
         ShapeIn2D newShape = canvas.mergeShapes(shape1, shape2);
         StraightLineIn2D closingLine = new StraightLineIn2D(point5, point1);
         LinkedHashSet<StraightLineIn2D> closingLHS = new LinkedHashSet<>();
         closingLHS.add(closingLine);
         newShape.addLinesToShape(closingLHS);
-        Assertions.assertEquals(1, canvas.allShapesInCanvas.size()); //and because of the previous mistake, shape1 is not being deleted either
         newShape.setShapeColor(Color.yellow);
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(newShape));
         Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape1));
         Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape2));
         System.out.println(canvas.allShapesInCanvas.stream().filter(x -> x.equals(newShape)).toList().get(0).toString());
+        Assertions.assertEquals(1, canvas.getAllShapesInCanvas().size()); //shape1 is not being deleted?
     }
 }
