@@ -102,6 +102,6 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
 
     @Override
     public String toString() {
-        return "ShapeIn2D{" + "fillColor=" + fillColor + ", closed=" + closed + ", canvas=" + canvas + ", lines=" + lines + '}';
+        return "ShapeIn2D{" + "fillColor=" + fillColor + ", closed=" + closed + ", canvas=" + canvas + ", lines=" + lines + '}' + "\n";
     }
 }

@@ -1,27 +1,26 @@
 package pa.logo;
 
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 
-/**
- * The main app.
- */
 public class App {
 
-    /**
-     * Descript
-     * @param args args
-     * @throws Exception if file not found
-     */
-    public static void main(String[] args) throws Exception {
-        // Passing the path to the file as a parameter
-        FileReader fr = new FileReader("/Users/alessiotozzi/GitHub/pa-logo/app/src/main/java/pa/logo/logo_file.txt");
+    public static void main(String[] args) {
+        try {
+            File in = new File("app/src/main/java/pa/logo/files/input.txt");
+            File out = new File("app/src/main/java/pa/logo/files/output.txt");
+            FileReader fr = new FileReader(in);
+            FileWriter fw = new FileWriter(out);
 
-        // Declaring loop variable
-        int i;
-        // Holds true till there is nothing to read
-        while ((i = fr.read()) != -1)
-
-            // Print all the content of a file
-            System.out.print((char) i);
+            int i;
+            while ((i = fr.read()) != -1) {
+                fw.write(i);
+            }
+            fr.close();
+            fw.close();
+        } catch (Exception e) {
+            return;
+        }
     }
 }

@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.util.LinkedHashSet;
 
 /**
- * Writes a file.
+ * Writes an output.
  *
  * @param <P> a point.
  * @param <L> a line.

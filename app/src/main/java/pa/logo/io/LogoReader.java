@@ -7,7 +7,7 @@ import java.awt.geom.Point2D;
 import java.nio.file.Path;
 
 /**
- * Reads given file.
+ * Reads an input.
  *
  * @param <P> a point.
  * @param <L> a line.

@@ -89,9 +89,7 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
      * @return the new shape in 2D that merges shape 1 and 2.
      */
     public ShapeIn2D mergeShapes(ShapeIn2D shape1, ShapeIn2D shape2) throws NullPointerException, IllegalArgumentException {
-        if (shape1 == null || shape2 == null) {
-            throw new NullPointerException();
-        }
+        if (shape1 == null || shape2 == null) throw new NullPointerException();
         LinkedHashSet<StraightLineIn2D> newSet = new LinkedHashSet<>();
         for (StraightLineIn2D l : shape1.getShapeLines()) {
             newSet.add(l);
@@ -101,10 +99,9 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
         }
         ShapeChecker checker = new ShapeChecker();
         if (checker.isLegal(newSet)) {
+            removeShapeFromCanvas(shape1);
+            removeShapeFromCanvas(shape2);
             ShapeIn2D newShape = new ShapeIn2D(newSet, this);
-            this.addShapeToCanvas(newShape);
-            this.removeShapeFromCanvas(shape1);
-            this.removeShapeFromCanvas(shape2);
             return newShape;
         } else {
             throw new IllegalArgumentException("Impossible to merge the two shapes.");

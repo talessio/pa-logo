@@ -51,7 +51,6 @@ public class CanvasIn2DTest {
         Assertions.assertTrue(canvas.getAllShapesInCanvas().contains(newShape));
         Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape1));
         Assertions.assertFalse(canvas.getAllShapesInCanvas().contains(shape2));
-        System.out.println(canvas.allShapesInCanvas.stream().filter(x -> x.equals(newShape)).toList().get(0).toString());
-        Assertions.assertEquals(1, canvas.getAllShapesInCanvas().size()); //shape1 is not being deleted?
+        Assertions.assertEquals(1, canvas.getAllShapesInCanvas().size()); //two duplicate shapes are being saved? how
     }
 }
