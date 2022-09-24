@@ -53,13 +53,13 @@ public class StraightLineIn2DTest {
         lineForShape2.add(line4);
         ShapeIn2D shape2 = new ShapeIn2D(lineForShape2, this.canvas);
 
-        Assertions.assertSame(line1.getLineColor(), Color.black);
-        Assertions.assertSame(line2.getLineColor(), Color.yellow);
-        Assertions.assertSame(line3.getLineColor(), Color.black);
-        Assertions.assertSame(line4.getLineColor(), Color.green);
-        Assertions.assertNotSame(line1.getLineColor(), Color.yellow);
-        Assertions.assertNotSame(line2.getLineColor(), Color.black);
-        Assertions.assertNotSame(line3.getLineColor(), Color.green);
-        Assertions.assertNotSame(line4.getLineColor(), Color.yellow);
+        Assertions.assertSame(line1.getColor(), Color.black);
+        Assertions.assertSame(line2.getColor(), Color.yellow);
+        Assertions.assertSame(line3.getColor(), Color.black);
+        Assertions.assertSame(line4.getColor(), Color.green);
+        Assertions.assertNotSame(line1.getColor(), Color.yellow);
+        Assertions.assertNotSame(line2.getColor(), Color.black);
+        Assertions.assertNotSame(line3.getColor(), Color.green);
+        Assertions.assertNotSame(line4.getColor(), Color.yellow);
     }
 }

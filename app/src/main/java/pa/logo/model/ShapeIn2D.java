@@ -16,10 +16,6 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
     private Color fillColor;
     private boolean closed = false;
     private CanvasIn2D canvas;
-
-    /**
-     * ArrayList of all lines in the shape. Can contain any number of connected lines.
-     */
     private LinkedHashSet<StraightLineIn2D> lines = new LinkedHashSet<>();
 
     /**
@@ -43,20 +39,14 @@ public class ShapeIn2D implements Shape<LogoPointIn2D, StraightLineIn2D> {
             allLines.add(l);
         }
         //putting new lines and old lines together in a mock shape to test
-        if (!this.lines.isEmpty()) {
-            allLines.addAll(this.lines);
-        }
+        if (!this.lines.isEmpty()) allLines.addAll(this.lines);
         //check that old lines and new lines don't conflict with each other
         ShapeChecker sCh = new ShapeChecker();
         if (sCh.isLegal(allLines)) {
             //if passed, I add new lines to the actual shape
             this.lines.addAll(linesToAdd);
-            if (sCh.getNeedsToClose()) {
-                this.setClosed();
-            }
-        } else {
-            throw new IllegalArgumentException("Cannot add lines to the shape.");
-        }
+            if (sCh.getNeedsToClose()) this.setClosed();
+        } else throw new IllegalArgumentException("Cannot add lines to the shape.");
     }
 
     @Override

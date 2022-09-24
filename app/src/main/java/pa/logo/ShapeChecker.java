@@ -40,22 +40,14 @@ public class ShapeChecker implements LegalityChecker<LinkedHashSet<StraightLineI
         //check how many times each coordinate appears and save it into a hashmap
         HashMap<LogoPointIn2D, Integer> occurrences = generateNumberOfOccurrences(points);
         //check how many ends the shape has by counting the number of ends in the shape
-        if (occurrences.isEmpty()) {
-            return false;
-        }
+        if (occurrences.isEmpty()) return false;
         int ends = getNumberOfEndsOfShape(occurrences);
-//        System.out.println("number of ends: " + ends);
-//        if (ends > 2 || ends == 1) {
-//            return false;
-//        } else
         if (ends == 2) {
             return true;
         } else if (ends == 0) {
             setNeedsToClose(true);
             return true;
-        } else {
-            return false;
-        }
+        } else return false;
     }
 
     /**
@@ -105,7 +97,6 @@ public class ShapeChecker implements LegalityChecker<LinkedHashSet<StraightLineI
             if (value == 1) {
                 counter++;
             }
-//            System.out.println("num end of shape counted: " + counter);
         }
         return counter;
     }
@@ -124,7 +115,7 @@ public class ShapeChecker implements LegalityChecker<LinkedHashSet<StraightLineI
      *
      * @param b what to set the shape, if true the shape needs to be closed, if false the shape will need to be open.
      */
-    public void setNeedsToClose(boolean b) {
+    private void setNeedsToClose(boolean b) {
         this.needsToClose = b;
     }
 }

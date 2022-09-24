@@ -7,9 +7,9 @@ import java.util.ArrayList;
 /**
  * Defines the canvas on which one draws.
  *
- * @param <P> the points containing the coordinates of the line(s). can be 2D, 3D or more.
- * @param <L> the line(s).
- * @param <S> the shape(s).
+ * @param <P> the point containing the coordinates of the line.
+ * @param <L> the line.
+ * @param <S> the shape.
  */
 public interface Canvas<P extends Point2D, L extends Line<P>, S extends Shape<P, L>> {
 

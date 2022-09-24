@@ -31,6 +31,23 @@ public class LogoPointIn2D extends Point2D {
     }
 
     /**
+     * Implements the point in two dimensions inside a canvas.
+     *
+     * @param coordinate1 the x coordinate;
+     * @param coordinate2 the y coordinate;
+     * @param canvas      the canvas where the coordinate is located;
+     */
+    public LogoPointIn2D(double coordinate1, double coordinate2, CanvasIn2D canvas) {
+        CoordinateChecker cCh = new CoordinateChecker();
+        cCh.setComparisonSizes(canvas.getHeight(), canvas.getBase());
+        if (cCh.isLegal(coordinate1) && cCh.isLegal(coordinate2)) {
+            this.canvas = canvas;
+            this.x = coordinate1;
+            this.y = coordinate2;
+        }
+    }
+
+    /**
      * Returns the canvas where the point is placed.
      *
      * @return the canvas
@@ -46,23 +63,6 @@ public class LogoPointIn2D extends Point2D {
      */
     public void setCanvas(CanvasIn2D canvas) {
         this.canvas = canvas;
-    }
-
-    /**
-     * Implements the point in two dimensions inside a canvas.
-     *
-     * @param coordinate1 the x coordinate;
-     * @param coordinate2 the y coordinate;
-     * @param canvas      the canvas where the coordinate is located;
-     */
-    public LogoPointIn2D(double coordinate1, double coordinate2, CanvasIn2D canvas) {
-        CoordinateChecker cCh = new CoordinateChecker();
-        cCh.setComparisonSizes(canvas.getHeight(), canvas.getBase());
-        if (cCh.isLegal(coordinate1) && cCh.isLegal(coordinate2)) {
-            this.canvas = canvas;
-            this.x = coordinate1;
-            this.y = coordinate2;
-        }
     }
 
     /**

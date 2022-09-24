@@ -149,9 +149,7 @@ public class CursorIn2D implements Cursor<Double, Integer, LogoPointIn2D, Straig
 
     //TODO
     @Override
-    public void repeat(int numberOfTimes) {
-
-    }
+    public void repeat(int numberOfTimes) {}
 
     /**
      * Checks the position against the size of the canvas, if it's too big or small it repositions it within the size.
@@ -161,17 +159,13 @@ public class CursorIn2D implements Cursor<Double, Integer, LogoPointIn2D, Straig
      */
     private LogoPointIn2D checkAgainstCanvasSize(LogoPointIn2D position) {
         if (position.getX() > canvas.getBase()) {
-//            position.setX(canvas.getBase());
             position.setLocation(canvas.getBase(), position.getY());
         } else if (position.getX() < 0) {
-//            position.setX(0.0);
             position.setLocation(0.0, position.getY());
         }
         if (position.getY() > canvas.getHeight()) {
-//            position.setY(canvas.getHeight());
             position.setLocation(position.getX(), canvas.getHeight());
         } else if (position.getY() < 0) {
-//            position.setY(0.0);
             position.setLocation(position.getX(), 0.0);
         }
         return position;

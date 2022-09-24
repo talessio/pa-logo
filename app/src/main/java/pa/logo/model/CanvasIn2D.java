@@ -12,12 +12,8 @@ import java.util.LinkedHashSet;
 public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, ShapeIn2D> {
     private final double height;
     private final double base;
-    private Color canvasColor = Color.white;
+    private Color canvasColor;
     private final CursorIn2D cursor;
-
-    /**
-     * ArrayList of all the shapes located on the canvas.
-     */
     ArrayList<ShapeIn2D> allShapesInCanvas;
 
     /**
@@ -34,6 +30,7 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
         this.base = base;
         this.allShapesInCanvas = shapes;
         this.cursor = new CursorIn2D(this);
+        setCanvasColor(Color.white);
     }
 
     /**
@@ -49,9 +46,9 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
             throw new IllegalArgumentException("Height or base have to be bigger than 0.0");
         this.height = height;
         this.base = base;
-        this.canvasColor = canvasColor;
         this.allShapesInCanvas = shapes;
         this.cursor = new CursorIn2D(this);
+        setCanvasColor(canvasColor);
     }
 
     /**
@@ -117,6 +114,15 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
         return cursor;
     }
 
+    /**
+     * Returns the coordinates for the home.
+     *
+     * @return the coordinates for the home.
+     */
+    public LogoPointIn2D getHome() {
+        return new LogoPointIn2D(base / 2, height / 2, this);
+    }
+
     @Override
     public void addShapeToCanvas(ShapeIn2D shape) {
         if (shape == null) throw new NullPointerException();
@@ -143,15 +149,6 @@ public class CanvasIn2D implements Canvas<LogoPointIn2D, StraightLineIn2D, Shape
     public void setCanvasColor(Color color) throws NullPointerException {
         if (color == null) throw new NullPointerException("Color cannot be null");
         this.canvasColor = color;
-    }
-
-    /**
-     * Returns the coordinates for the home.
-     *
-     * @return the coordinates for the home.
-     */
-    public LogoPointIn2D getHome() {
-        return new LogoPointIn2D(base / 2, height / 2, this);
     }
 
     @Override

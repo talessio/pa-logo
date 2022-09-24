@@ -53,6 +53,7 @@ public class StraightLineIn2D extends Line2D implements Line<LogoPointIn2D> {
         return this.canvas;
     }
 
+
     @Override
     public ArrayList<LogoPointIn2D> getPoints() {
         ArrayList<LogoPointIn2D> lineCoordinates = new ArrayList<>();
@@ -62,7 +63,12 @@ public class StraightLineIn2D extends Line2D implements Line<LogoPointIn2D> {
     }
 
     @Override
-    public Color getLineColor() {
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    @Override
+    public Color getColor() {
         return this.color;
     }
 
