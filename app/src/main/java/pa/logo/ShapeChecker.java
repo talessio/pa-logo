@@ -37,7 +37,7 @@ public class ShapeChecker implements LegalityChecker<LinkedHashSet<StraightLineI
     private boolean hasLegalNumberOfEnds(LinkedHashSet<StraightLineIn2D> lines) {
         //get all the points from all the lines inside the shape
         ArrayList<LogoPointIn2D> points = getAllPoints(lines);
-        //check how many times each coordinate appears and save it into a hashmap
+        //check how many times each point appears and save it into a hashmap
         HashMap<LogoPointIn2D, Integer> occurrences = generateNumberOfOccurrences(points);
         //check how many ends the shape has by counting the number of ends in the shape
         if (occurrences.isEmpty()) return false;
